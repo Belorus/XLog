@@ -2,50 +2,20 @@
 
 namespace XLog
 {
-    public class Logger : ILogger
+    internal class Logger : ILogger
     {
-        private readonly string _tag;
         private readonly LogConfig _config;
+        public readonly string Tag;
 
-        public Logger(string tag, LogConfig config)
+        internal Logger(string tag, LogConfig config)
         {
-            _tag = tag;
+            Tag = tag;
             _config = config;
         }
 
-        public string Tag
+        string ILogger.Tag
         {
-            get { return _tag; }
-        }
-
-        public bool IsTraceEnabled
-        {
-            get { return IsEnabled(LogLevel.Trace); }
-        }
-
-        public bool IsDebugEnabled
-        {
-            get { return IsEnabled(LogLevel.Debug); }
-        }
-
-        public bool IsInfoEnabled
-        {
-            get { return IsEnabled(LogLevel.Info); }
-        }
-
-        public bool IsWarnEnabled
-        {
-            get { return IsEnabled(LogLevel.Warn); }
-        }
-
-        public bool IsErrorEnabled
-        {
-            get { return IsEnabled(LogLevel.Error); }
-        }
-
-        public bool IsFatalEnabled
-        {
-            get { return IsEnabled(LogLevel.Fatal); }
+            get { return Tag; }
         }
 
         public void Trace(string message, Exception ex = null)
@@ -115,22 +85,17 @@ namespace XLog
 
         public void Log(int logLevel, string message, params object[] ps)
         {
-            LogInternal(logLevel, message, ps, null, true);
+            LogInternal(logLevel, message, ps, null, ps.Length > 0);
         }
 
-        public bool IsEnabled(int level)
+        public bool IsEnabled(int logLevel)
         {
-            return _config.IsLevelEnabled(level);
+            return _config.IsLevelEnabled(logLevel);
         }
 
         private void LogInternal(int logLevel, string message, object[] ps, Exception ex, bool doFormat)
         {
-            if (!_config.IsEnabled)
-            {
-                return;
-            }
-
-            if (!_config.IsLevelEnabled(logLevel))
+            if (!_config.IsEnabled || !_config.IsLevelEnabled(logLevel))
             {
                 return;
             }
@@ -140,7 +105,7 @@ namespace XLog
                 message = string.Format(message, ps);
             }
 
-            var entry = new Entry(logLevel, _tag, message, ex);
+            var entry = new Entry(logLevel, Tag, message, ex);
             foreach (var target in _config.GetTargets(logLevel))
             {
                 try

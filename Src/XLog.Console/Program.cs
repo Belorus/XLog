@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Threading.Tasks;
 using XLog.Formatters;
-using XLog.Targets;
 
 namespace XLog.ConsoleApp
 {
@@ -12,14 +11,21 @@ namespace XLog.ConsoleApp
         {
             var logConfig = new LogConfig { IsEnabled = true };
             var formatter = new LineFormatter();
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new FileTarget(formatter, "Logs", "Log"));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(formatter, "Logs", "Log"));
             logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget(formatter));
             logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget(formatter));
 
             LogManager.Init(logConfig);
-
-            Task.WhenAll(Enumerable.Range(0, 100).Select(_ => new Foo()).Select(f => f.DoWork()).Concat(Enumerable.Range(0, 100).Select(_ => new Bar()).Select(f => f.DoWork())));
+            Test();
             Console.ReadKey();
+        }
+
+        private static void Test()
+        {
+            var now = DateTime.Now;
+            Task.WhenAll(Enumerable.Range(0, 100).Select(_ => new Foo()).Select(f => f.DoWork()).Concat(Enumerable.Range(0, 100).Select(_ => new Bar()).Select(f => f.DoWork()))).Wait();
+            var elapsed = DateTime.Now - now;
+            Console.WriteLine("Took {0}", elapsed);
         }
     }
 

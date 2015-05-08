@@ -36,6 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Formatters\LineFormatter.cs" />
+    <Compile Include="Formatters\NullFormatter.cs" />
     <Compile Include="LogConfig.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="ILogger.cs" />
@@ -46,7 +47,6 @@
     <Compile Include="LogManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TargetConfig.cs" />
-    <Compile Include="Targets\DebugTarget.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

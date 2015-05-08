@@ -39,6 +39,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleTarget.cs" />
+    <Compile Include="DebugTarget.cs" />
+    <Compile Include="SyncFileTarget.cs" />
     <Compile Include="FileTarget.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

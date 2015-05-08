@@ -5,12 +5,7 @@ namespace XLog
     public interface ILogger
     {
         string Tag { get; }
-        bool IsTraceEnabled { get; }
-        bool IsDebugEnabled { get; }
-        bool IsInfoEnabled { get; }
-        bool IsWarnEnabled { get; }
-        bool IsErrorEnabled { get; }
-        bool IsFatalEnabled { get; }
+        bool IsEnabled(int logLevel);
         void Trace(string message, Exception ex = null);
         void Trace(string message, params object[] ps);
         void Debug(string message, Exception ex = null);
@@ -23,8 +18,5 @@ namespace XLog
         void Error(string message, params object[] ps);
         void Fatal(string message, Exception ex = null);
         void Fatal(string message, params object[] ps);
-        void Log(int logLevel, string message, Exception ex);
-        void Log(int logLevel, string message, params object[] ps);
-        bool IsEnabled(int level);
     }
 }

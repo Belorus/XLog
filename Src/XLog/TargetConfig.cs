@@ -1,14 +1,12 @@
-﻿using System;
-
-namespace XLog
+﻿namespace XLog
 {
-    public class TargetConfig
+    internal class TargetConfig
     {
-        public readonly int MinLevel;
-        public readonly int MaxLevel;
+        internal readonly int MinLevel;
+        internal readonly int MaxLevel;
         internal readonly Target Target;
 
-        public TargetConfig(int minLevel, int maxLevel, Target target)
+        internal TargetConfig(int minLevel, int maxLevel, Target target)
         {
             MinLevel = minLevel;
             MaxLevel = maxLevel;

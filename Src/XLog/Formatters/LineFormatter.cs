@@ -7,22 +7,22 @@ namespace XLog.Formatters
     {
         public string Format(Entry entry)
         {
-            var stringBuilder = new StringBuilder();
-            stringBuilder.Append(entry.TimeStamp.ToLocalTime().ToString("HH:mm:ss:fff"));
-            stringBuilder.Append("|");
-            stringBuilder.Append(entry.LevelStr);
-            stringBuilder.Append("|");
-            stringBuilder.Append(Environment.CurrentManagedThreadId);
-            stringBuilder.Append("|");
-            stringBuilder.Append(entry.Tag);
-            stringBuilder.Append("|");
-            stringBuilder.Append(entry.Message);
+            var builder = new StringBuilder();
+            builder.Append(entry.TimeStamp.ToLocalTime().ToString("HH:mm:ss:fff"));
+            builder.Append("|");
+            builder.Append(entry.LevelStr);
+            builder.Append("|");
+            builder.Append(Environment.CurrentManagedThreadId);
+            builder.Append("|");
+            builder.Append(entry.Tag);
+            builder.Append("|");
+            builder.Append(entry.Message);
             if (entry.Exception != null)
             {
-                stringBuilder.Append(" --> ");
-                stringBuilder.Append(entry.Exception);
+                builder.Append(" --> ");
+                builder.Append(entry.Exception);
             }
-            return stringBuilder.ToString();
+            return builder.ToString();
         }
     }
 }

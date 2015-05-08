@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace XLog
+﻿namespace XLog
 {
     public abstract class Target
     {

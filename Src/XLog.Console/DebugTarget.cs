@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XLog.Targets
+namespace XLog.ConsoleApp
 {
     public class DebugTarget : Target
     {

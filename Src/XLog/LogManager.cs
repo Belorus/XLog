@@ -5,12 +5,13 @@ namespace XLog
 {
     public class LogManager
     {
+        private static LogManager _default;
+
         private readonly Dictionary<string, Logger> _loggers;
         private readonly object _loggersLock = new object();
 
         public readonly LogConfig DefaultConfig;
 
-        private static LogManager _default;
         public static LogManager Default
         {
             get { return _default; }
