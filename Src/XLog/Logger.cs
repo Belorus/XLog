@@ -106,15 +106,19 @@ namespace XLog
             }
 
             var entry = new Entry(logLevel, Tag, message, ex);
-            foreach (var target in _config.GetTargets(logLevel))
+            for (int index = 0; index < _config.TargetConfigs.Length; index++)
             {
-                try
+                var c = _config.TargetConfigs[index];
+                if (c.SupportsLevel(logLevel))
                 {
-                    target.Write(entry);
-                }
-                catch (Exception e)
-                {
-                    System.Diagnostics.Debug.WriteLine("Target write failed. --> {0}", e);
+                    try
+                    {
+                        c.Target.Write(entry);
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Debug.WriteLine("Target write failed. --> {0}", e);
+                    }
                 }
             }
         }
