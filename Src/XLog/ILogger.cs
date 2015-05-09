@@ -18,5 +18,7 @@ namespace XLog
         void Error(string message, params object[] ps);
         void Fatal(string message, Exception ex = null);
         void Fatal(string message, params object[] ps);
+        void Log(int logLevel, string message, Exception ex);
+        void Log(int logLevel, string message, params object[] ps);
     }
 }

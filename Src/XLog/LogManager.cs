@@ -33,7 +33,7 @@ namespace XLog
             _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public ILogger GetLogger(string tag)
+        public ILogger GetLogger(string tag, LogConfig config = null)
         {
             if (string.IsNullOrWhiteSpace(tag))
             {
@@ -45,7 +45,7 @@ namespace XLog
             {
                 if (!_loggers.ContainsKey(tag))
                 {
-                    var logger = new Logger(tag, DefaultConfig);
+                    var logger = new Logger(tag, config ?? DefaultConfig);
                     System.Diagnostics.Debug.WriteLine("Created Logger '{0}'", tag);
                     _loggers[tag] = logger;
                 }

@@ -52,7 +52,6 @@ namespace XLog.ConsoleApp
                         }
 
                         writer.WriteLine(contents);
-                        writer.Flush();
                     }
                 }
                 catch (IOException)
