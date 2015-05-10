@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using XLog.Formatters;
@@ -11,13 +12,22 @@ namespace XLog.ConsoleApp
         {
             var logConfig = new LogConfig { IsEnabled = true };
             var formatter = new LineFormatter();
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(formatter, "Logs", "Log"));
+            var fastFileTarget = new FastFileTarget(formatter, "Logs", "Log");
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, fastFileTarget);
+            //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(formatter, "Logs", "Log"));
             logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget(formatter));
             logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget(formatter));
 
             LogManager.Init(logConfig);
+            //CancelTestTest(fastFileTarget);
             Test();
             Console.ReadKey();
+        }
+
+        private static async void CancelTestTest(FastFileTarget target)
+        {
+            await Task.Delay(5000);
+            target.Dispose();
         }
 
         private static void Test()
@@ -46,7 +56,7 @@ namespace XLog.ConsoleApp
             int i = 0;
             while (i++ < 1000)
             {
-                await Task.Delay(50);
+                await Task.Delay(5);
                 Log.Debug("id = {0}, i = {0}", _id, i);
             }
         }
@@ -69,7 +79,7 @@ namespace XLog.ConsoleApp
             int i = 0;
             while (i++ < 1000)
             {
-                await Task.Delay(50);
+                await Task.Delay(5);
                 Log.Debug("id = {0}, i = {0}", _id, i);
             }
         }

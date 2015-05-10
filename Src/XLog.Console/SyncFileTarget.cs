@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace XLog.ConsoleApp
+namespace XLog
 {
     public class SyncFileTarget : Target
     {

@@ -43,6 +43,7 @@
     </Compile>
     <Compile Include="ConsoleTarget.cs" />
     <Compile Include="DebugTarget.cs" />
+    <Compile Include="FastFileTarget.cs" />
     <Compile Include="SyncFileTarget.cs" />
     <Compile Include="FileTarget.cs" />
     <Compile Include="Program.cs" />
