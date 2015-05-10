@@ -12,6 +12,11 @@ namespace XLog.ConsoleApp
         private readonly AsyncSemaphore _semaphore;
         private readonly FileStream _file;
 
+        public FileTarget(string path, string fileNamePrefix)
+            : this(null, path, fileNamePrefix)
+        {
+        }
+
         public FileTarget(IFormatter formatter, string path, string fileNamePrefix)
             : base(formatter)
         {
@@ -38,10 +43,8 @@ namespace XLog.ConsoleApp
         public string FileNamePrefix;
 
 
-        public override async void Write(Entry entry)
+        public override async void Write(string content)
         {
-            var contents = Formatter.Format(entry);
-
             await _semaphore.WaitAsync();
 
             try
@@ -57,12 +60,12 @@ namespace XLog.ConsoleApp
                     {
                         using (var writer = new StreamWriter(_file, Encoding.UTF8, 4096, true))
                         {
-                            if (contents.Length > 5000)
+                            if (content.Length > 5000)
                             {
-                                contents = ">>>>>> " + contents.Replace(Environment.NewLine, string.Empty);
+                                content = ">>>>>> " + content.Replace(Environment.NewLine, string.Empty);
                             }
 
-                            writer.WriteLine(contents);
+                            writer.WriteLine(content);
                             writer.Flush();
                         }
 

@@ -113,7 +113,8 @@ namespace XLog
                 {
                     try
                     {
-                        c.Target.Write(entry);
+                        var content = (c.Target.Formatter ?? _config.Formatter).Format(entry);
+                        c.Target.Write(content);
                     }
                     catch (Exception e)
                     {

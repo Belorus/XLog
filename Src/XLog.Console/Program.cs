@@ -10,13 +10,13 @@ namespace XLog.ConsoleApp
     {
         static void Main(string[] args)
         {
-            var logConfig = new LogConfig { IsEnabled = true };
             var formatter = new LineFormatter();
-            var fastFileTarget = new FastFileTarget(formatter, "Logs", "Log");
+            var logConfig = new LogConfig(formatter) { IsEnabled = true };
+            var fastFileTarget = new FastFileTarget("Logs", "Log");
             logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, fastFileTarget);
-            //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(formatter, "Logs", "Log"));
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget(formatter));
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget(formatter));
+            //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget("Logs", "Log"));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
 
             LogManager.Init(logConfig);
             //CancelTestTest(fastFileTarget);

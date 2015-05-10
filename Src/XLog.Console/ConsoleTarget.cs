@@ -4,14 +4,14 @@ namespace XLog.ConsoleApp
 {
     public class ConsoleTarget : Target
     {
-        public ConsoleTarget(IFormatter formatter)
+        public ConsoleTarget(IFormatter formatter = null)
             : base(formatter)
         {
         }
 
-        public override void Write(Entry entry)
+        public override void Write(string content)
         {
-            Console.WriteLine(Formatter.Format(entry));
+            Console.WriteLine(content);
         }
     }
 }

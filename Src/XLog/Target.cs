@@ -2,13 +2,13 @@
 {
     public abstract class Target
     {
-        protected readonly IFormatter Formatter;
+        public readonly IFormatter Formatter;
 
-        protected Target(IFormatter formatter)
+        protected Target(IFormatter formatter = null)
         {
             Formatter = formatter;
         }
 
-        public abstract void Write(Entry entry);
+        public abstract void Write(string content);
     }
 }

@@ -15,6 +15,11 @@ namespace XLog
         public readonly string FileNamePrefix;
         private bool _disposed;
 
+        public FastFileTarget(string path, string fileNamePrefix)
+            : this(null, path, fileNamePrefix)
+        {
+        }
+
         public FastFileTarget(IFormatter formatter, string path, string fileNamePrefix)
             : base(formatter)
         {
@@ -66,14 +71,14 @@ namespace XLog
             }
         }
 
-        public override void Write(Entry entry)
+        public override void Write(string content)
         {
             if (_disposed)
             {
                 return;
             }
 
-            _collection.Add(Formatter.Format(entry));
+            _collection.Add(content);
         }
     }
 }

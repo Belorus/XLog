@@ -2,13 +2,15 @@
 {
     public class LogConfig
     {
+        public readonly IFormatter Formatter;
         internal TargetConfig[] TargetConfigs;
         internal readonly bool[] Levels;
 
         public bool IsEnabled;
 
-        public LogConfig()
+        public LogConfig(IFormatter formatter)
         {
+            Formatter = formatter;
             TargetConfigs = new TargetConfig[0];
             Levels = new bool[6];
         }

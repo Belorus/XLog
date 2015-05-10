@@ -10,6 +10,11 @@ namespace XLog
         private readonly FileStream _file;
         private readonly object _syncRoot;
 
+        public SyncFileTarget(string path, string fileNamePrefix)
+            : this(null, path, fileNamePrefix)
+        {
+        }
+
         public SyncFileTarget(IFormatter formatter, string path, string fileNamePrefix)
             : base(formatter)
         {
@@ -36,22 +41,20 @@ namespace XLog
         public string FileNamePrefix;
 
 
-        public override void Write(Entry entry)
+        public override void Write(string content)
         {
-            var contents = Formatter.Format(entry);
-
             lock (_syncRoot)
             {
                 try
                 {
                     using (var writer = new StreamWriter(_file, Encoding.UTF8, 4096, true))
                     {
-                        if (contents.Length > 5000)
+                        if (content.Length > 5000)
                         {
-                            contents = ">>>>>> " + contents.Replace(Environment.NewLine, string.Empty);
+                            content = ">>>>>> " + content.Replace(Environment.NewLine, string.Empty);
                         }
 
-                        writer.WriteLine(contents);
+                        writer.WriteLine(content);
                     }
                 }
                 catch (IOException)
