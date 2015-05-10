@@ -9,6 +9,12 @@
             Formatter = formatter;
         }
 
+        public virtual void Write(Entry entry, IFormatter formatter)
+        {
+            var content = (Formatter ?? formatter).Format(entry);
+            Write(content);
+        }
+
         public abstract void Write(string content);
     }
 }
