@@ -56,7 +56,7 @@ namespace XLog
 
         private void RunConsumer()
         {
-            using (var writer = new StreamWriter(_file, Encoding.UTF8, 4096, true))
+            using (var writer = new StreamWriter(_file, Encoding.UTF8))
             {
                 foreach (var s in _collection.GetConsumingEnumerable())
                 {
