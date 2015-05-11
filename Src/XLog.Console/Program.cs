@@ -12,16 +12,19 @@ namespace XLog.ConsoleApp
         {
             var formatter = new LineFormatter();
             var logConfig = new LogConfig(formatter) { IsEnabled = true };
-            var fastFileTarget = new FastFileTarget("Logs", "Log");
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, fastFileTarget);
+            //var fastFileTarget = new FastFileTarget("F:\\Logs", "Log");
+            //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, fastFileTarget);
             //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget("Logs", "Log"));
             //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
             //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new NullTarget());
 
             LogManager.Init(logConfig);
             //CancelTestTest(fastFileTarget);
-            Test();
-            fastFileTarget.Dispose();
+            Console.WriteLine("Press any key to start test");
+            Console.ReadKey();
+            Test2();
+            //fastFileTarget.Dispose();
             Console.ReadKey();
         }
 
@@ -34,7 +37,15 @@ namespace XLog.ConsoleApp
         private static void Test()
         {
             var now = DateTime.Now;
-            Task.WhenAll(Enumerable.Range(0, 100).Select(_ => new Foo()).Select(f => f.DoWork()).Concat(Enumerable.Range(0, 100).Select(_ => new Bar()).Select(f => f.DoWork()))).Wait();
+            Task.WhenAll(Enumerable.Range(0, 100).Select(_ => new Foo()).Select(f => f.DoWorkAsync()).Concat(Enumerable.Range(0, 100).Select(_ => new Bar()).Select(f => f.DoWorkAsync()))).Wait();
+            var elapsed = DateTime.Now - now;
+            Console.WriteLine("Took {0}", elapsed);
+        }
+
+        private static void Test2()
+        {
+            var now = DateTime.Now;
+            Task.WhenAll(Task.Factory.StartNew(new Foo().DoWork), Task.Factory.StartNew(new Bar().DoWork)).Wait();
             var elapsed = DateTime.Now - now;
             Console.WriteLine("Took {0}", elapsed);
         }
@@ -52,13 +63,22 @@ namespace XLog.ConsoleApp
             _id = Id++;
         }
 
-        public async Task DoWork()
+        public async Task DoWorkAsync()
         {
             int i = 0;
             while (i++ < 1000)
             {
                 await Task.Delay(5);
-                Log.Debug("id = {0}, i = {0}", _id, i);
+                Log.Debug("id = {0}, i = {0} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
+            }
+        }
+
+        public void DoWork()
+        {
+            int i = 0;
+            while (i++ < 5000000)
+            {
+                Log.Debug("id = {0}, i = {0} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
             }
         }
     }
@@ -75,13 +95,22 @@ namespace XLog.ConsoleApp
             _id = Id++;
         }
 
-        public async Task DoWork()
+        public async Task DoWorkAsync()
         {
             int i = 0;
             while (i++ < 1000)
             {
                 await Task.Delay(5);
-                Log.Debug("id = {0}, i = {0}", _id, i);
+                Log.Debug("id = {0}, i = {1} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
+            }
+        }
+
+        public void DoWork()
+        {
+            int i = 0;
+            while (i++ < 5000000)
+            {
+                Log.Debug("id = {0}, i = {1} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
             }
         }
     }
