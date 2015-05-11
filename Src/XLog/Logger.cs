@@ -28,6 +28,21 @@ namespace XLog
             Log(LogLevel.Debug, message, ex);
         }
 
+        public void Debug(string message, object arg1)
+        {
+            Log(LogLevel.Debug, message, arg1, null);
+        }
+
+        public void Debug(string message, object arg1, object arg2)
+        {
+            Log(LogLevel.Debug, message, arg1, arg2, null);
+        }
+
+        public void Debug(string message, object arg1, object arg2, object arg3)
+        {
+            Log(LogLevel.Debug, message, arg1, arg2, arg3, null);
+        }
+
         public void Debug(string message, params object[] ps)
         {
             Log(LogLevel.Debug, message, ps);
@@ -73,31 +88,41 @@ namespace XLog
             Log(LogLevel.Fatal, message, ps);
         }
 
-        public void Log(int logLevel, string message, Exception ex)
+        public void Log(LogLevel logLevel, string message, Exception ex = null)
         {
-            LogInternal(logLevel, message, null, ex, false);
+            LogInternal(logLevel, message, ex);
         }
 
-        public void Log(int logLevel, string message, params object[] ps)
+        public void Log(LogLevel logLevel, string message, object arg1)
         {
-            LogInternal(logLevel, message, ps, null, ps.Length > 0);
+            LogInternal(logLevel, string.Format(message, arg1), null);
         }
 
-        public bool IsEnabled(int logLevel)
+        public void Log(LogLevel logLevel, string message, object arg1, object arg2)
         {
-            return _config.Levels[logLevel];
+            LogInternal(logLevel, string.Format(message, arg1, arg2), null);
         }
 
-        private void LogInternal(int logLevel, string message, object[] ps, Exception ex, bool doFormat)
+        public void Log(LogLevel logLevel, string message, object arg1, object arg2, object arg3)
         {
-            if (!_config.IsEnabled || !_config.Levels[logLevel])
+            LogInternal(logLevel, string.Format(message, arg1, arg2, arg3), null);
+        }
+
+        public void Log(LogLevel logLevel, string message, params object[] ps)
+        {
+            LogInternal(logLevel, string.Format(message, ps), null);
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return _config.Levels[(int)logLevel];
+        }
+
+        private void LogInternal(LogLevel logLevel, string message, Exception ex)
+        {
+            if (!_config.IsEnabled || !_config.Levels[(int)logLevel])
             {
                 return;
-            }
-
-            if (doFormat)
-            {
-                message = string.Format(message, ps);
             }
 
             var entry = new Entry(logLevel, Tag, message, ex);

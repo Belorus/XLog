@@ -15,19 +15,19 @@
             Levels = new bool[6];
         }
 
-        public void AddTarget(int logLevel, Target target)
+        public void AddTarget(LogLevel logLevel, Target target)
         {
             AddTarget(logLevel, logLevel, target);
         }
 
-        public void AddTarget(int minLevel, int maxLevel, Target target)
+        public void AddTarget(LogLevel minLevel, LogLevel maxLevel, Target target)
         {
             var t = new TargetConfig[TargetConfigs.Length + 1];
             TargetConfigs.CopyTo(t, 0);
             TargetConfigs = t;
 
             TargetConfigs[TargetConfigs.Length - 1] = new TargetConfig(minLevel, maxLevel, target);
-            for (int level = minLevel; level <= maxLevel; level++)
+            for (int level = (int)minLevel; level <= (int)maxLevel; level++)
             {
                 Levels[level] = true;
             }

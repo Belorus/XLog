@@ -69,16 +69,16 @@ namespace XLog.ConsoleApp
             while (i++ < 1000)
             {
                 await Task.Delay(5);
-                Log.Debug("id = {0}, i = {0} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
+                Log.Debug("id = {0}, i = {1} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
             }
         }
 
         public void DoWork()
         {
             int i = 0;
-            while (i++ < 5000000)
+            while (i++ < 100000)
             {
-                Log.Debug("id = {0}, i = {0} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
+                Log.Debug("id = {0}, i = {1} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
             }
         }
     }
@@ -108,7 +108,7 @@ namespace XLog.ConsoleApp
         public void DoWork()
         {
             int i = 0;
-            while (i++ < 5000000)
+            while (i++ < 100000)
             {
                 Log.Debug("id = {0}, i = {1} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
             }

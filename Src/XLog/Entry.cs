@@ -13,21 +13,21 @@ namespace XLog
             "FATAL"
         };
 
-        public int Level;
+        public LogLevel Level;
         public string LevelStr;
         public string Tag;
         public string Message;
-        public DateTimeOffset TimeStamp;
+        public DateTime TimeStamp;
         public Exception Exception;
 
-        public Entry(int level, string tag, string message, Exception ex)
+        public Entry(LogLevel level, string tag, string message, Exception ex)
         {
             Level = level;
-            LevelStr = Levels[level];
+            LevelStr = Levels[(int)level];
             Tag = tag;
             Message = message;
             Exception = ex;
-            TimeStamp = DateTimeOffset.UtcNow;
+            TimeStamp = DateTime.UtcNow;
         }
     }
 }

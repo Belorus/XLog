@@ -2,18 +2,18 @@
 {
     internal class TargetConfig
     {
-        internal readonly int MinLevel;
-        internal readonly int MaxLevel;
+        internal readonly LogLevel MinLevel;
+        internal readonly LogLevel MaxLevel;
         internal readonly Target Target;
 
-        internal TargetConfig(int minLevel, int maxLevel, Target target)
+        internal TargetConfig(LogLevel minLevel, LogLevel maxLevel, Target target)
         {
             MinLevel = minLevel;
             MaxLevel = maxLevel;
             Target = target;
         }
 
-        internal bool SupportsLevel(int level)
+        internal bool SupportsLevel(LogLevel level)
         {
             return MinLevel <= level && level <= MaxLevel;
         }
