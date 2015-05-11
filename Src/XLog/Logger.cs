@@ -28,21 +28,6 @@ namespace XLog
             Log(LogLevel.Debug, message, ex);
         }
 
-        public void Debug(string message, object arg1)
-        {
-            Log(LogLevel.Debug, message, arg1, null);
-        }
-
-        public void Debug(string message, object arg1, object arg2)
-        {
-            Log(LogLevel.Debug, message, arg1, arg2, null);
-        }
-
-        public void Debug(string message, object arg1, object arg2, object arg3)
-        {
-            Log(LogLevel.Debug, message, arg1, arg2, arg3, null);
-        }
-
         public void Debug(string message, params object[] ps)
         {
             Log(LogLevel.Debug, message, ps);
@@ -91,21 +76,6 @@ namespace XLog
         public void Log(LogLevel logLevel, string message, Exception ex = null)
         {
             LogInternal(logLevel, message, ex);
-        }
-
-        public void Log(LogLevel logLevel, string message, object arg1)
-        {
-            LogInternal(logLevel, string.Format(message, arg1), null);
-        }
-
-        public void Log(LogLevel logLevel, string message, object arg1, object arg2)
-        {
-            LogInternal(logLevel, string.Format(message, arg1, arg2), null);
-        }
-
-        public void Log(LogLevel logLevel, string message, object arg1, object arg2, object arg3)
-        {
-            LogInternal(logLevel, string.Format(message, arg1, arg2, arg3), null);
         }
 
         public void Log(LogLevel logLevel, string message, params object[] ps)
