@@ -15,8 +15,8 @@ namespace XLog.ConsoleApp
             var fastFileTarget = new FastFileTarget("Logs", "Log");
             logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, fastFileTarget);
             //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget("Logs", "Log"));
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
+            //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
+            //logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new DebugTarget());
 
             LogManager.Init(logConfig);
             //CancelTestTest(fastFileTarget);
@@ -41,7 +41,7 @@ namespace XLog.ConsoleApp
 
     public class Foo
     {
-        private static readonly ILogger Log = LogManager.Default.GetLogger("Foo");
+        private static readonly Logger Log = LogManager.Default.GetLogger("Foo");
 
         public static int Id;
         private readonly int _id;
@@ -64,7 +64,7 @@ namespace XLog.ConsoleApp
 
     public class Bar
     {
-        private static readonly ILogger Log = LogManager.Default.GetLogger("Bar");
+        private static readonly Logger Log = LogManager.Default.GetLogger("Bar");
 
         public static int Id;
         private readonly int _id;

@@ -2,7 +2,7 @@
 
 namespace XLog
 {
-    internal class Logger : ILogger
+    public class Logger
     {
         private readonly LogConfig _config;
         public readonly string Tag;
@@ -11,11 +11,6 @@ namespace XLog
         {
             Tag = tag;
             _config = config;
-        }
-
-        string ILogger.Tag
-        {
-            get { return Tag; }
         }
 
         public void Trace(string message, Exception ex = null)

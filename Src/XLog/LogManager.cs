@@ -33,14 +33,14 @@ namespace XLog
             _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
         }
 
-        public ILogger GetLogger(string tag, LogConfig config = null)
+        public Logger GetLogger(string tag, LogConfig config = null)
         {
             if (string.IsNullOrWhiteSpace(tag))
             {
                 throw new ArgumentNullException("tag");
             }
 
-            ILogger result;
+            Logger result;
             lock (_loggersLock)
             {
                 if (!_loggers.ContainsKey(tag))

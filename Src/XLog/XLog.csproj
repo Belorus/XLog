@@ -37,7 +37,6 @@
   <ItemGroup>
     <Compile Include="LogConfig.cs" />
     <Compile Include="Entry.cs" />
-    <Compile Include="ILogger.cs" />
     <Compile Include="IFormatter.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="Logger.cs" />

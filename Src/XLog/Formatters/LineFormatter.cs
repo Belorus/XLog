@@ -7,7 +7,15 @@ namespace XLog.Formatters
     {
         public string Format(Entry entry)
         {
-            var builder = new StringBuilder();
+            int length = 12 + 1 + 5 + 1 + 4 + 1 + entry.Tag.Length + 1 + entry.Message.Length;
+            string exceptionStr = null;
+            if (entry.Exception != null)
+            {
+                exceptionStr = entry.Exception.ToString();
+                length += 5 + exceptionStr.Length;
+            }
+
+            var builder = new StringBuilder(length);
             builder.Append(entry.TimeStamp.ToLocalTime().ToString("HH:mm:ss:fff"));
             builder.Append("|");
             builder.Append(entry.LevelStr);
@@ -17,11 +25,12 @@ namespace XLog.Formatters
             builder.Append(entry.Tag);
             builder.Append("|");
             builder.Append(entry.Message);
-            if (entry.Exception != null)
+            if (exceptionStr != null)
             {
                 builder.Append(" --> ");
-                builder.Append(entry.Exception);
+                builder.Append(exceptionStr);
             }
+            System.Diagnostics.Debug.Assert(builder.Capacity == length);
             return builder.ToString();
         }
     }
