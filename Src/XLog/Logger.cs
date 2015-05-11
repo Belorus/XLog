@@ -85,12 +85,12 @@ namespace XLog
 
         public bool IsEnabled(int logLevel)
         {
-            return _config.IsLevelEnabled(logLevel);
+            return _config.Levels[logLevel];
         }
 
         private void LogInternal(int logLevel, string message, object[] ps, Exception ex, bool doFormat)
         {
-            if (!_config.IsEnabled || !_config.IsLevelEnabled(logLevel))
+            if (!_config.IsEnabled || !_config.Levels[logLevel])
             {
                 return;
             }

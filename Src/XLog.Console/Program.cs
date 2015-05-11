@@ -21,6 +21,7 @@ namespace XLog.ConsoleApp
             LogManager.Init(logConfig);
             //CancelTestTest(fastFileTarget);
             Test();
+            fastFileTarget.Dispose();
             Console.ReadKey();
         }
 
