@@ -42,6 +42,9 @@
     <Compile Include="..\XLog\Formatters\LineFormatter.cs">
       <Link>LineFormatter.cs</Link>
     </Compile>
+    <Compile Include="..\XLog\Formatters\StringBuilderPool.cs">
+      <Link>StringBuilderPool.cs</Link>
+    </Compile>
     <Compile Include="ConsoleTarget.cs" />
     <Compile Include="DebugTarget.cs" />
     <Compile Include="FastFileTarget.cs" />

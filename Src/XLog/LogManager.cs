@@ -43,14 +43,12 @@ namespace XLog
             Logger result;
             lock (_loggersLock)
             {
-                if (!_loggers.ContainsKey(tag))
+                if (!_loggers.TryGetValue(tag, out result))
                 {
-                    var logger = new Logger(tag, config ?? DefaultConfig);
+                    result = new Logger(tag, config ?? DefaultConfig);
                     System.Diagnostics.Debug.WriteLine("Created Logger '{0}'", tag);
-                    _loggers[tag] = logger;
+                    _loggers[tag] = result;
                 }
-
-                result = _loggers[tag];
             }
 
             return result;
