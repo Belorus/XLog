@@ -23,7 +23,9 @@ namespace XLog.Formatters
         public static StringBuilder Get()
         {
             int index = Interlocked.Increment(ref _index);
-            return Builders[index % BuildersCount];
+            var builder = Builders[index % BuildersCount];
+            builder.Clear();
+            return builder;
         }
     }
 }

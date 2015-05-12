@@ -19,7 +19,6 @@ namespace XLog.Formatters
         public string Format(Entry entry)
         {
             var builder = StringBuilderPool.Get();
-            builder.Clear();
             builder.Append(entry.TimeStamp.ToString("HH:mm:ss:fff"));
             builder.Append("|");
             builder.Append(entry.LevelStr);
