@@ -50,7 +50,6 @@
     <Compile Include="FastFileTarget.cs" />
     <Compile Include="NullTarget.cs" />
     <Compile Include="SyncFileTarget.cs" />
-    <Compile Include="FileTarget.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
