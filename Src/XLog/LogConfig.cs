@@ -1,4 +1,6 @@
-﻿namespace XLog
+﻿using System;
+
+namespace XLog
 {
     public class LogConfig
     {
@@ -6,7 +8,7 @@
         internal TargetConfig[] TargetConfigs;
         internal readonly bool[] Levels;
 
-        public bool IsEnabled;
+        public bool IsEnabled = true;
 
         public LogConfig(IFormatter formatter)
         {

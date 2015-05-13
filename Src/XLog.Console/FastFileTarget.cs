@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace XLog
 {
-    public class FastFileTarget : Target, IDisposable
+    public class FastFileTarget : Target
     {
         private readonly FileStream _file;
         private readonly BlockingCollection<string> _collection;
 
         public readonly string Path;
         public readonly string FileNamePrefix;
-        private bool _disposed;
 
         public FastFileTarget(string path, string fileNamePrefix)
             : this(null, path, fileNamePrefix)
@@ -43,9 +42,8 @@ namespace XLog
             Start();
         }
 
-        public void Dispose()
-        {
-            _disposed = true;
+        public override void Flush()
+        {        
             _collection.CompleteAdding();
         }
 
@@ -73,11 +71,6 @@ namespace XLog
 
         public override void Write(string content)
         {
-            if (_disposed)
-            {
-                return;
-            }
-
             _collection.Add(content);
         }
     }

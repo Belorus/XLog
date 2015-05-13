@@ -1,4 +1,5 @@
-﻿namespace XLog
+﻿
+namespace XLog
 {
     public abstract class Target
     {
@@ -16,5 +17,9 @@
         }
 
         public abstract void Write(string content);
+
+        public virtual void Flush()
+        {
+        }
     }
 }

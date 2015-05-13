@@ -7,8 +7,7 @@ namespace XLog
 {
     public class SyncFileTarget : Target
     {
-        private readonly FileStream _file;
-        private readonly object _syncRoot;
+        private readonly object _syncRoot = new object();
 
         public SyncFileTarget(string path, string fileNamePrefix)
             : this(null, path, fileNamePrefix)
@@ -33,33 +32,19 @@ namespace XLog
             }
 #endif
 
-            _file = File.Open(fileName, FileMode.Append, FileAccess.Write, FileShare.Read);
-            _syncRoot = new object();
+            var file = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+            _writer = new StreamWriter(file, Encoding.UTF8);
         }
 
         public string Path { get; private set; }
         public string FileNamePrefix;
-
+        private readonly StreamWriter _writer;
 
         public override void Write(string content)
         {
             lock (_syncRoot)
             {
-                try
-                {
-                    using (var writer = new StreamWriter(_file, Encoding.UTF8, 4096, true))
-                    {
-                        if (content.Length > 5000)
-                        {
-                            content = ">>>>>> " + content.Replace(Environment.NewLine, string.Empty);
-                        }
-
-                        writer.WriteLine(content);
-                    }
-                }
-                catch (IOException)
-                {
-                }
+                _writer.WriteLine(content);
             }
         }
 
@@ -95,6 +80,14 @@ namespace XLog
             File.Delete(copyName);
 
             return bytes;
+        }
+
+        public override void Flush()
+        {
+            lock (_syncRoot)
+            {
+                _writer.Flush();
+            }
         }
     }
 }
