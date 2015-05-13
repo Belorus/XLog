@@ -20,7 +20,7 @@ namespace XLog.ConsoleApp
             try
             {
                 LogManager.Init(logConfig);
-                Test2();
+                Measure();
             }
             finally
             {
@@ -29,7 +29,7 @@ namespace XLog.ConsoleApp
             Console.ReadKey();
         }
 
-        private static void Test2()
+        private static void Measure()
         {
             var sw = Stopwatch.StartNew();
             new LogUser().DoWork();

@@ -50,21 +50,34 @@ namespace XLog
 
         public byte[][] CollectLastLogs(int count)
         {
-            FileInfo[] logFiles = Directory.GetFiles(Path).Select(f => new FileInfo(f)).OrderByDescending(x => x.CreationTime).Take(count).ToArray();
-            byte[][] logsContent = null;
-            do
+            lock (_syncRoot)
             {
-                try
-                {
-                    logsContent = logFiles.Select(ReadFileContentsSafe).ToArray();
-                }
-                catch (IOException)
-                {
+                _writer.Flush();
 
-                }
-            } while (logsContent == null);
+                FileInfo[] logFiles = Directory.GetFiles(Path)
+                    .Select(f => new FileInfo(f))
+                    .OrderByDescending(x => x.CreationTime)
+                    .Take(count)
+                    .ToArray();
 
-            return logsContent;
+                byte[][] logsContent = new byte[count][];
+
+                for (int i = 0; i < logFiles.Length; i++)
+                {
+                    do
+                    {
+                        try
+                        {
+                            logsContent[i] = ReadFileContentsSafe(logFiles[i]);
+                        }
+                        catch (IOException)
+                        {
+                        }
+                    } while (logsContent[i] == null);
+                }
+
+                return logsContent;
+            }
         }
 
         private static byte[] ReadFileContentsSafe(FileInfo f)

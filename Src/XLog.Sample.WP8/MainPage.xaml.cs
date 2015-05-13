@@ -1,9 +1,9 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Phone.Controls;
 using XLog.Formatters;
 using System.Diagnostics;
-using XLog.ConsoleApp;
 
 namespace XLog.Sample.WP8
 {
@@ -17,8 +17,8 @@ namespace XLog.Sample.WP8
 
             var formatter = new LineFormatter();
             logConfig = new LogConfig(formatter);
-
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget("Logs", "Log"));
+            
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "Log"));
             
             Button.Click += OnButtonClick;
         }
@@ -30,7 +30,7 @@ namespace XLog.Sample.WP8
             var logger = LogManager.Default.GetLogger("TestLogger");
 
             var sw = Stopwatch.StartNew();
-            for (int i = 0; i < 10000; i++)
+            for (int i = 0; i < 100000; i++)
             {
                 logger.Debug("Hello {0}", i);
             }
