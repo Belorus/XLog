@@ -55,7 +55,7 @@ namespace XLog.ConsoleApp
             int i = 0;
             while (i++ < 200000)
             {
-                Log.Debug("id = {0}, i = {1} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i);
+                Log.Debug(string.Format("id = {0}, i = {1} very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long string", _id, i));
             }
         }
     }
