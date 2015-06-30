@@ -27,6 +27,8 @@ namespace XLog.Formatters
             builder.Append("|");
             builder.Append(entry.Tag);
             builder.Append("|");
+            builder.Append(entry.Category);
+            builder.Append("|");
             builder.Append(entry.Message);
             if (entry.Exception != null)
             {

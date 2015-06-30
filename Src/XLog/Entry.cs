@@ -17,15 +17,17 @@ namespace XLog
         public string LevelStr;
         public string Tag;
         public string Message;
+        public long Category;
         public DateTime TimeStamp;
         public Exception Exception;
 
-        public Entry(LogLevel level, string tag, string message, Exception ex)
+        public Entry(LogLevel level, string tag, string message, long category, Exception ex)
         {
             Level = level;
             LevelStr = Levels[(int)level];
             Tag = tag;
             Message = message;
+            Category = category;
             Exception = ex;
             TimeStamp = DateTime.UtcNow;
         }
