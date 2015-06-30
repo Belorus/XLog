@@ -13,62 +13,122 @@ namespace XLog
             _config = config;
         }
 
-        public void Trace(string message, Exception ex = null)
+        public void Trace(string message)
+        {
+            Log(LogLevel.Trace, message, 0L, null);
+        }
+
+        public void Trace(string message, long category)
+        {
+            Log(LogLevel.Trace, message, category, null);
+        }
+
+        public void Trace(string message, Exception ex)
         {
             Log(LogLevel.Trace, message, 0L, ex);
         }
 
-        public void Trace(string message, long category = 0L, Exception ex = null)
+        public void Trace(string message, long category, Exception ex)
         {
             Log(LogLevel.Trace, message, category, ex);
         }
 
-        public void Debug(string message, Exception ex = null)
+        public void Debug(string message)
+        {
+            Log(LogLevel.Debug, message, 0L, null);
+        }
+
+        public void Debug(string message, long category)
+        {
+            Log(LogLevel.Debug, message, category, null);
+        }
+
+        public void Debug(string message, Exception ex)
         {
             Log(LogLevel.Debug, message, 0L, ex);
         }
 
-        public void Debug(string message, long category = 0L, Exception ex = null)
+        public void Debug(string message, long category, Exception ex)
         {
             Log(LogLevel.Debug, message, category, ex);
         }
 
-        public void Info(string message, Exception ex = null)
+        public void Info(string message)
+        {
+            Log(LogLevel.Info, message, 0L, null);
+        }
+
+        public void Info(string message, long category)
+        {
+            Log(LogLevel.Info, message, category, null);
+        }
+
+        public void Info(string message, Exception ex)
         {
             Log(LogLevel.Info, message, 0L, ex);
         }
 
-        public void Info(string message, long category = 0L, Exception ex = null)
+        public void Info(string message, long category, Exception ex)
         {
             Log(LogLevel.Info, message, category, ex);
         }
 
-        public void Warn(string message, Exception ex = null)
+        public void Warn(string message)
+        {
+            Log(LogLevel.Warn, message, 0L, null);
+        }
+
+        public void Warn(string message, long category)
+        {
+            Log(LogLevel.Warn, message, category, null);
+        }
+
+        public void Warn(string message, Exception ex)
         {
             Log(LogLevel.Warn, message, 0L, ex);
         }
 
-        public void Warn(string message, long category = 0L, Exception ex = null)
+        public void Warn(string message, long category, Exception ex)
         {
             Log(LogLevel.Warn, message, category, ex);
         }
 
-        public void Error(string message, Exception ex = null)
+        public void Error(string message)
+        {
+            Log(LogLevel.Error, message, 0L, null);
+        }
+
+        public void Error(string message, long category)
+        {
+            Log(LogLevel.Error, message, category, null);
+        }
+
+        public void Error(string message, Exception ex)
         {
             Log(LogLevel.Error, message, 0L, ex);
         }
 
-        public void Error(string message, long category = 0L, Exception ex = null)
+        public void Error(string message, long category, Exception ex)
         {
             Log(LogLevel.Error, message, category, ex);
         }
 
-        public void Fatal(string message, Exception ex = null)
+        public void Fatal(string message)
+        {
+            Log(LogLevel.Fatal, message, 0L, null);
+        }
+
+        public void Fatal(string message, long category)
+        {
+            Log(LogLevel.Fatal, message, category, null);
+        }
+
+        public void Fatal(string message, Exception ex)
         {
             Log(LogLevel.Fatal, message, 0L, ex);
         }
 
-        public void Fatal(string message, long category = 0L, Exception ex = null)
+        public void Fatal(string message, long category, Exception ex)
         {
             Log(LogLevel.Fatal, message, category, ex);
         }
