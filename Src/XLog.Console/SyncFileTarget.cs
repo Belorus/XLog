@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Text;
 
-namespace XLog
+namespace XLog.NET
 {
-    public class SyncFileTarget : Target
+    public class SyncFileTarget : Target, IFileTarget
     {
         private readonly object _syncRoot = new object();
 
@@ -32,8 +32,15 @@ namespace XLog
             }
 #endif
 
-            var file = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.Read);
-            _writer = new StreamWriter(file, Encoding.UTF8);
+            try
+            {
+                var file = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+                _writer = new StreamWriter(file, Encoding.UTF8);
+            }
+            catch (IOException)
+            {
+                _writer = StreamWriter.Null;
+            }
         }
 
         public string Path { get; private set; }
@@ -52,18 +59,19 @@ namespace XLog
         {
             lock (_syncRoot)
             {
-                _writer.Flush();
+                Flush();
 
                 FileInfo[] logFiles = Directory.GetFiles(Path)
-                    .Select(f => new FileInfo(f))
-                    .OrderByDescending(x => x.CreationTime)
-                    .Take(count)
-                    .ToArray();
+                                               .Select(f => new FileInfo(f))
+                                               .OrderByDescending(x => x.CreationTime)
+                                               .Take(count)
+                                               .ToArray();
 
-                byte[][] logsContent = new byte[count][];
+                byte[][] logsContent = new byte[logFiles.Length][];
 
                 for (int i = 0; i < logFiles.Length; i++)
                 {
+                    int numOfRetries = 3;
                     do
                     {
                         try
@@ -73,7 +81,7 @@ namespace XLog
                         catch (IOException)
                         {
                         }
-                    } while (logsContent[i] == null);
+                    } while (logsContent[i] == null && --numOfRetries > 0);
                 }
 
                 return logsContent;
@@ -99,8 +107,23 @@ namespace XLog
         {
             lock (_syncRoot)
             {
-                _writer.Flush();
+                try
+                {
+                    _writer.Flush();
+                }
+                catch (IOException)
+                {
+                    // If log file cannot be flushed - we shouldn't crash. 
+                    // Supressing finalization to avoid crash in finalizer
+                    GC.SuppressFinalize(_writer);
+                    GC.SuppressFinalize(_writer.BaseStream);
+                }
             }
         }
+    }
+
+    public interface IFileTarget
+    {
+        byte[][] CollectLastLogs(int count);
     }
 }

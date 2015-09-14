@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Microsoft.Phone.Controls;
 using XLog.Formatters;
 using System.Diagnostics;
+using XLog.NET;
 
 namespace XLog.Sample.WP8
 {
@@ -32,7 +33,7 @@ namespace XLog.Sample.WP8
             var sw = Stopwatch.StartNew();
             for (int i = 0; i < 100000; i++)
             {
-                logger.Debug("Hello {0}", i);
+                logger.Debug(string.Format("Hello {0}", i));
             }
             LogManager.Default.Flush();
             sw.Stop();

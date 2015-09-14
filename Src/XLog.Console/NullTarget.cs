@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace XLog.ConsoleApp
+﻿namespace XLog.NET
 {
     public class NullTarget : Target
     {

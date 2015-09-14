@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using XLog.Formatters;
 
-namespace XLog.ConsoleApp
+namespace XLog.NET
 {
     class Program
     {

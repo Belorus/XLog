@@ -1,23 +1,21 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
-namespace XLog
+namespace XLog.NET
 {
-    public class FastFileTarget : Target
+    public class FastFileTarget : Target, IDisposable, IFileTarget
     {
         private readonly FileStream _file;
         private readonly BlockingCollection<string> _collection;
+        private readonly ManualResetEvent _completeEvent = new ManualResetEvent(false);
 
-        public readonly string Path;
         public readonly string FileNamePrefix;
-
-        public FastFileTarget(string path, string fileNamePrefix)
-            : this(null, path, fileNamePrefix)
-        {
-        }
+        private bool _disposed;
 
         public FastFileTarget(IFormatter formatter, string path, string fileNamePrefix)
             : base(formatter)
@@ -42,14 +40,30 @@ namespace XLog
             Start();
         }
 
-        public override void Flush()
-        {        
+        public string Path { get; private set; }
+
+        public void Dispose()
+        {
+            if (_disposed)
+            {
+                return;
+            }
+
+            _disposed = true;
             _collection.CompleteAdding();
+            _completeEvent.WaitOne();
         }
 
         private async void Start()
         {
-            await Task.Factory.StartNew(RunConsumer, TaskCreationOptions.LongRunning);
+            try
+            {
+                await Task.Factory.StartNew(RunConsumer, TaskCreationOptions.LongRunning);
+            }
+            finally
+            {
+                _completeEvent.Set();
+            }
         }
 
         private void RunConsumer()
@@ -58,20 +72,53 @@ namespace XLog
             {
                 foreach (var s in _collection.GetConsumingEnumerable())
                 {
-                    var contents = s;
-                    if (contents.Length > 5000)
-                    {
-                        contents = ">>>>>> " + contents.Replace(Environment.NewLine, string.Empty);
-                    }
-
-                    writer.WriteLine(contents);
+                    writer.WriteLine(s);
                 }
             }
         }
 
         public override void Write(string content)
         {
+            if (_disposed)
+            {
+                return;
+            }
+
             _collection.Add(content);
         }
+
+        public byte[][] CollectLastLogs(int count)
+        {
+            FileInfo[] logFiles = Directory.GetFiles(Path).Select(f => new FileInfo(f)).OrderByDescending(x => x.CreationTime).Take(count).ToArray();
+
+            byte[][] logsContent = null;
+            do
+            {
+                try
+                {
+                    logsContent = logFiles.Select(ReadFileContentsSafe).ToArray();
+                }
+                catch (IOException)
+                {
+
+                }
+            } while (logsContent == null);
+
+            return logsContent;
+        }
+
+        private static byte[] ReadFileContentsSafe(FileInfo f)
+        {
+            string copyName = f.FullName + ".copy";
+            byte[] bytes = new byte[f.Length];
+
+            File.Copy(f.FullName, copyName);
+            using (var stream = File.OpenRead(copyName))
+                stream.Read(bytes, 0, bytes.Length);
+            File.Delete(copyName);
+
+            return bytes;
+        }
+
     }
 }

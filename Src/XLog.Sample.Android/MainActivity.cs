@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using Android.App;
-using Android.Content;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using Android.OS;
 using XLog.Formatters;
+using XLog.NET;
 
 namespace XLog.Sample.Android
 {
@@ -45,7 +43,7 @@ namespace XLog.Sample.Android
             var sw = Stopwatch.StartNew();
             for (int i = 0; i < 100000; i++)
             {
-                logger.Debug("Hello {0}", i);
+                logger.Debug(string.Format("Hello {0}", i));
             }
             LogManager.Default.Flush();
             sw.Stop();
