@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace XLog
 {
@@ -12,20 +11,16 @@ namespace XLog
             get { return _instance; }
         }
 
-        private readonly Dictionary<string, Logger> _loggers;
-        private readonly object _loggersLock = new object();
-
         public readonly LogConfig Config;
         
-        public static void Init(LogConfig config)
-        {
-            _instance = new LogManager(config);
-        }
-
         private LogManager(LogConfig config)
         {
             Config = config;
-            _loggers = new Dictionary<string, Logger>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        public static void Init(LogConfig config)
+        {
+            _instance = new LogManager(config);
         }
 
         public Logger GetLogger(string tag, LogConfig config = null)
@@ -35,18 +30,7 @@ namespace XLog
                 throw new ArgumentNullException("tag");
             }
 
-            Logger result;
-            lock (_loggersLock)
-            {
-                if (!_loggers.TryGetValue(tag, out result))
-                {
-                    result = new Logger(tag, config ?? Config);
-                    System.Diagnostics.Debug.WriteLine("Created Logger '{0}'", tag);
-                    _loggers[tag] = result;
-                }
-            }
-
-            return result;
+            return new Logger(tag, config ?? Config);
         }
 
         public void Flush()

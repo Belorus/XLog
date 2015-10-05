@@ -90,15 +90,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\XLog.Console\SyncFileTarget.cs">
-      <Link>SyncFileTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\XLog\Formatters\LineFormatter.cs">
-      <Link>LineFormatter.cs</Link>
-    </Compile>
-    <Compile Include="..\XLog\Formatters\StringBuilderPool.cs">
-      <Link>StringBuilderPool.cs</Link>
-    </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -157,15 +148,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XLog.WP8\XLog.WP8.csproj">
+      <Project>{9ed05095-a668-4b29-b5ee-959e2dba126f}</Project>
+      <Name>XLog.WP8</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XLog\XLog.csproj">
       <Project>{92855d98-b566-49d3-ad3f-5b751472a7b5}</Project>
       <Name>XLog</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Nito.AsyncEx">
-      <HintPath>..\..\3rdParty\Async\Nito.AsyncEx.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace XLog.NET
+namespace XLog.NET.Targets
 {
     public class ConsoleTarget : Target
     {

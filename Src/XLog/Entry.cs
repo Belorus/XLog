@@ -4,15 +4,6 @@ namespace XLog
 {
     public class Entry
     {
-        private static readonly string[] Levels = {
-            "TRACE",
-            "DEBUG",
-            "INFO",
-            "WARN",
-            "ERROR",
-            "FATAL"
-        };
-
         public LogLevel Level;
         public string LevelStr;
         public string Tag;
@@ -24,7 +15,7 @@ namespace XLog
         public Entry(LogLevel level, string tag, string message, long category, Exception ex)
         {
             Level = level;
-            LevelStr = Levels[(int)level];
+            LevelStr = LogLevels.Levels[(int)level];
             Tag = tag;
             Message = message;
             Category = category;

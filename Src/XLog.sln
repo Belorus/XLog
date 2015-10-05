@@ -1,17 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22823.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40302.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog", "XLog\XLog.csproj", "{92855D98-B566-49D3-AD3F-5B751472A7B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.ConsoleApp", "XLog.Console\XLog.ConsoleApp.csproj", "{4C41451A-1D66-469A-AE1F-ACDA0E98F0F1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.NET", "XLog.Console\XLog.NET.csproj", "{4C41451A-1D66-469A-AE1F-ACDA0E98F0F1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample", "Sample", "{6F14265B-0D58-4FDC-86DA-1FD0082D7201}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.Sample.WP8", "XLog.Sample.WP8\XLog.Sample.WP8.csproj", "{DA547473-9DFD-405E-AAAD-50A3EB25E602}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.Sample.Android", "XLog.Sample.Android\XLog.Sample.Android.csproj", "{2DEF81F7-CED9-4E24-9BC8-EE5E83C7AC7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XLog.WP8", "XLog.WP8\XLog.WP8.csproj", "{9ED05095-A668-4B29-B5EE-959E2DBA126F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,18 @@ Global
 		{2DEF81F7-CED9-4E24-9BC8-EE5E83C7AC7F}.Release|x86.ActiveCfg = Release|Any CPU
 		{2DEF81F7-CED9-4E24-9BC8-EE5E83C7AC7F}.Release|x86.Build.0 = Release|Any CPU
 		{2DEF81F7-CED9-4E24-9BC8-EE5E83C7AC7F}.Release|x86.Deploy.0 = Release|Any CPU
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Debug|ARM.ActiveCfg = Debug|ARM
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Debug|ARM.Build.0 = Debug|ARM
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Debug|x86.ActiveCfg = Debug|x86
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Debug|x86.Build.0 = Debug|x86
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Release|ARM.ActiveCfg = Release|ARM
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Release|ARM.Build.0 = Release|ARM
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Release|x86.ActiveCfg = Release|x86
+		{9ED05095-A668-4B29-B5EE-959E2DBA126F}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -35,6 +35,9 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formatters\LineFormatter.cs" />
+    <Compile Include="Formatters\NullFormatter.cs" />
+    <Compile Include="Formatters\StringBuilderPool.cs" />
     <Compile Include="LogConfig.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="IFormatter.cs" />

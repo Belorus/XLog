@@ -96,7 +96,7 @@ namespace XLog
             }
 
             var entry = new Entry(logLevel, Tag, message, category, ex);
-            for (int index = 0; index < _config.TargetConfigs.Length; index++)
+            for (int index = 0; index < _config.TargetConfigs.Count; index++)
             {
                 var c = _config.TargetConfigs[index];
                 if (c.SupportsLevel(logLevel))

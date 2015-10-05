@@ -1,10 +1,9 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Threading;
 
 namespace XLog.Formatters
 {
-    public static class StringBuilderPool
+    internal static class StringBuilderPool
     {
         private const int BuildersCount = 10;
         private const int BuilderLength = 1000;

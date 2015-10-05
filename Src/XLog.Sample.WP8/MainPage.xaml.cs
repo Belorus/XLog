@@ -1,16 +1,15 @@
-﻿using System;
+﻿using System.Diagnostics;
 using System.Windows;
-using System.Windows.Controls;
+using Windows.Storage;
 using Microsoft.Phone.Controls;
 using XLog.Formatters;
-using System.Diagnostics;
-using XLog.NET;
+using XLog.NET.Targets;
 
 namespace XLog.Sample.WP8
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private LogConfig logConfig;
+        private readonly LogConfig logConfig;
 
         public MainPage()
         {
@@ -19,7 +18,7 @@ namespace XLog.Sample.WP8
             var formatter = new LineFormatter();
             logConfig = new LogConfig(formatter);
             
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(Windows.Storage.ApplicationData.Current.LocalFolder.Path, "Log"));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(ApplicationData.Current.LocalFolder.Path, "Log"));
             
             Button.Click += OnButtonClick;
         }
