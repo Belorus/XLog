@@ -49,15 +49,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\XLog.Console\SyncFileTarget.cs">
-      <Link>SyncFileTarget.cs</Link>
-    </Compile>
-    <Compile Include="..\XLog\Formatters\LineFormatter.cs">
-      <Link>LineFormatter.cs</Link>
-    </Compile>
-    <Compile Include="..\XLog\Formatters\StringBuilderPool.cs">
-      <Link>StringBuilderPool.cs</Link>
-    </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +71,10 @@
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\XLog.Android\XLog.Android.csproj">
+      <Project>{fbaf5b35-ca98-456e-ba94-42ff596441da}</Project>
+      <Name>XLog.Android</Name>
+    </ProjectReference>
     <ProjectReference Include="..\XLog\XLog.csproj">
       <Project>{92855d98-b566-49d3-ad3f-5b751472a7b5}</Project>
       <Name>XLog</Name>

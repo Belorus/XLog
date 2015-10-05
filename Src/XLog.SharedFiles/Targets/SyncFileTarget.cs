@@ -8,33 +8,32 @@ namespace XLog.NET.Targets
     public class SyncFileTarget : Target, IFileTarget
     {
         private readonly object _syncRoot = new object();
+        private readonly StreamWriter _writer;
+        
+        private readonly string _logFilePath;
+        private readonly string _logFileDirectory;
 
-        public SyncFileTarget(string path, string fileNamePrefix)
-            : this(null, path, fileNamePrefix)
+        public SyncFileTarget(string logFilePath)
+            : this(null, logFilePath)
         {
         }
 
-        public SyncFileTarget(IFormatter formatter, string path, string fileNamePrefix)
+        public SyncFileTarget(IFormatter formatter, string logFilePath)
             : base(formatter)
         {
-            Path = path;
-            FileNamePrefix = fileNamePrefix;
+            _logFileDirectory = Path.GetDirectoryName(logFilePath);
+            _logFilePath = logFilePath;
 
-            Directory.CreateDirectory(Path);
+            Directory.CreateDirectory(_logFileDirectory);
 
-#if DEV_BUILD
-            var fileName = System.IO.Path.Combine(Path, FileNamePrefix) + DateTime.Now.ToString("s").Replace(":", "_") + ".log";
-#else
-            var fileName = System.IO.Path.Combine(Path, FileNamePrefix) + ".log";
-            if (File.Exists(fileName))
+            if (File.Exists(_logFilePath))
             {
-                File.Delete(fileName);
+                File.Delete(_logFilePath);
             }
-#endif
 
             try
             {
-                var file = File.Open(fileName, FileMode.Create, FileAccess.Write, FileShare.Read);
+                var file = File.Open(_logFilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
                 _writer = new StreamWriter(file, Encoding.UTF8);
             }
             catch (IOException)
@@ -42,10 +41,6 @@ namespace XLog.NET.Targets
                 _writer = StreamWriter.Null;
             }
         }
-
-        public string Path { get; private set; }
-        public string FileNamePrefix;
-        private readonly StreamWriter _writer;
 
         public override void Write(string content)
         {
@@ -61,7 +56,7 @@ namespace XLog.NET.Targets
             {
                 Flush();
 
-                FileInfo[] logFiles = Directory.GetFiles(Path)
+                FileInfo[] logFiles = Directory.GetFiles(_logFileDirectory)
                                                .Select(f => new FileInfo(f))
                                                .OrderByDescending(x => x.CreationTime)
                                                .Take(count)

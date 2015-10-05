@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -8,41 +7,36 @@ using System.Threading.Tasks;
 
 namespace XLog.NET.Targets
 {
-    public class FastFileTarget : Target, IDisposable, IFileTarget
+    public class FastFileTarget : Target, IFileTarget
     {
         private readonly FileStream _file;
         private readonly BlockingCollection<string> _collection;
         private readonly ManualResetEvent _completeEvent = new ManualResetEvent(false);
 
-        public readonly string FileNamePrefix;
+        private readonly string _logFilePath;
+        private readonly string _logFileDirectory;
+
         private bool _disposed;
 
-        public FastFileTarget(IFormatter formatter, string path, string fileNamePrefix)
+        public FastFileTarget(IFormatter formatter, string logFilePath)
             : base(formatter)
         {
-            Path = path;
-            FileNamePrefix = fileNamePrefix;
+            _logFileDirectory = Path.GetDirectoryName(logFilePath);
+            _logFilePath = logFilePath;
 
-            Directory.CreateDirectory(Path);
+            Directory.CreateDirectory(_logFileDirectory);
 
-#if DEV_BUILD
-            var fileName = System.IO.Path.Combine(Path, FileNamePrefix) + DateTime.Now.ToString("s").Replace(":", "_") + ".log";
-#else
-            var fileName = System.IO.Path.Combine(Path, FileNamePrefix) + ".log";
-            if (File.Exists(fileName))
+            if (File.Exists(_logFilePath))
             {
-                File.Delete(fileName);
+                File.Delete(_logFilePath);
             }
-#endif
 
-            _file = File.Open(fileName, FileMode.Append, FileAccess.Write, FileShare.Read);
+            _file = File.Open(_logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read);
             _collection = new BlockingCollection<string>();
             Start();
         }
 
-        public string Path { get; private set; }
-
-        public void Dispose()
+        public override void Flush()
         {
             if (_disposed)
             {
@@ -89,7 +83,7 @@ namespace XLog.NET.Targets
 
         public byte[][] CollectLastLogs(int count)
         {
-            FileInfo[] logFiles = Directory.GetFiles(Path).Select(f => new FileInfo(f)).OrderByDescending(x => x.CreationTime).Take(count).ToArray();
+            FileInfo[] logFiles = Directory.GetFiles(_logFileDirectory).Select(f => new FileInfo(f)).OrderByDescending(x => x.CreationTime).Take(count).ToArray();
 
             byte[][] logsContent = null;
             do

@@ -26,6 +26,8 @@ namespace XLog.Sample.Android
 		
 		public static void UpdateIdValues()
 		{
+			global::XLog.Android.Resource.String.ApplicationName = global::XLog.Sample.Android.Resource.String.ApplicationName;
+			global::XLog.Android.Resource.String.Hello = global::XLog.Sample.Android.Resource.String.Hello;
 		}
 		
 		public partial class Attribute

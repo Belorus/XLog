@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 
 namespace XLog.Formatters
 {
@@ -18,7 +19,8 @@ namespace XLog.Formatters
 
         public string Format(Entry entry)
         {
-            var builder = StringBuilderPool.Get();
+            int slotNumber;
+            var builder = FixedStringBuilderPool.Get(out slotNumber);
             builder.Append(entry.TimeStamp.ToString("HH:mm:ss:fff"));
             builder.Append("|");
             builder.Append(entry.LevelStr);
@@ -36,7 +38,11 @@ namespace XLog.Formatters
                 builder.Append(entry.Exception);
             }
 
-            return builder.ToString();
+            var str = builder.ToString();
+
+            FixedStringBuilderPool.Return(slotNumber, builder);
+
+            return str;
         }
 
     }
