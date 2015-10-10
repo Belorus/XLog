@@ -25,5 +25,19 @@ namespace XLog.Sample.Winforms
         {
             ThreadPool.QueueUserWorkItem((o) => { throw new Exception("BG thread exc"); });
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                throw new Exception("Unobserved task exc");
+            });
+
+            Thread.Sleep(16);
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
     }
 }

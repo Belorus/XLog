@@ -46,7 +46,6 @@ namespace XLog.Sample.Winforms
             Logger.Error("TaskSchedulerOnUnobservedTaskException", e.Exception);
         }
 
-
         private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             Logger.Error("CurrentDomainOnUnhandledException", (Exception)e.ExceptionObject);
