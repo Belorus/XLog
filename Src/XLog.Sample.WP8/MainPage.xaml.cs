@@ -1,4 +1,4 @@
-﻿using System.Diagnostics;
+﻿using System;
 using System.IO;
 using System.Windows;
 using Windows.Storage;
@@ -23,7 +23,8 @@ namespace XLog.Sample.WP8
             var formatter = new LineFormatter();
             var logConfig = new LogConfig(formatter);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(Path.Combine(ApplicationData.Current.LocalFolder.Path, "Log")));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal,
+                new SyncFileTarget(Path.Combine(ApplicationData.Current.LocalFolder.Path, "Log")));
 
             LogManager.Init(logConfig);
         }
@@ -32,16 +33,8 @@ namespace XLog.Sample.WP8
         {
             var logger = LogManager.Default.GetLogger("TestLogger");
 
-            var sw = Stopwatch.StartNew();
-            for (int i = 0; i < 100000; i++)
-            {
-                logger.Debug(string.Format("Hello {0}", i));
-            }
+            logger.Debug(string.Format("Hello {0}", "World"));
             LogManager.Default.Flush();
-            sw.Stop();
-            MessageBox.Show(sw.Elapsed.ToString());
         }
-
-        
     }
 }

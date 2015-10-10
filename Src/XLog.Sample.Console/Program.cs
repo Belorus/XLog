@@ -1,17 +1,37 @@
-﻿using XLog.Formatters;
+﻿using System;
+using System.Threading.Tasks;
+using XLog.Formatters;
 using XLog.NET.Targets;
 
 namespace XLog.Sample.Console
 {
-    class Program
+    internal class Program
     {
-        static void Main()
+        private static void Main()
         {
             InitLogger();
 
-            Logic.TestWrite();
+            TaskScheduler.UnobservedTaskException += TaskSchedulerOnUnobservedTaskException;
 
-            LogManager.Default.Flush();
+            try
+            {
+                Logic.TestWrite();
+            }
+            catch (Exception ex)
+            {
+                LogManager.Default.GetLogger("CrashLogger").Error("oops", ex);
+                throw;
+            }
+            finally
+            {
+                LogManager.Default.Flush();
+            }
+        }
+
+        private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
+        {
+            LogManager.Default.GetLogger("UnobservedCrashLogger").Error("oops", e.Exception);
+
         }
 
         private static void InitLogger()
@@ -19,7 +39,7 @@ namespace XLog.Sample.Console
             var formatter = new LineFormatter();
             var logConfig = new LogConfig(formatter);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new NullTarget());
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(@"I:\Log.log"));
 
             LogManager.Init(logConfig);
         }
