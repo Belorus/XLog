@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text;
 
 namespace XLog.Formatters
 {
@@ -8,6 +7,8 @@ namespace XLog.Formatters
         private const int NumbersCount = 100;
         private static readonly string[] Numbers;
 
+        private readonly ICategoryResolver _categoryResolver;
+
         static LineFormatter()
         {
             Numbers = new string[NumbersCount];
@@ -15,6 +16,11 @@ namespace XLog.Formatters
             {
                 Numbers[i] = i.ToString();
             }
+        }
+
+        public LineFormatter(ICategoryResolver categoryResolver = null)
+        {
+            _categoryResolver = categoryResolver;
         }
 
         public string Format(Entry entry)
@@ -29,8 +35,13 @@ namespace XLog.Formatters
             builder.Append("|");
             builder.Append(entry.Tag);
             builder.Append("|");
-            builder.Append(entry.Category);
-            builder.Append("|");
+            
+            if (_categoryResolver != null)
+            {
+                builder.Append(entry.Category);
+                builder.Append("|");
+            }
+
             builder.Append(entry.Message);
             if (entry.Exception != null)
             {
