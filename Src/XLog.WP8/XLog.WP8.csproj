@@ -83,8 +83,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\XLog.SharedFiles\Targets\DebugTarget.cs">
-      <Link>Targets\DebugTarget.cs</Link>
+    <Compile Include="..\XLog.SharedFiles\Targets\DelegateTarget.cs">
+      <Link>Targets\DelegateTarget.cs</Link>
     </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\NullTarget.cs">
       <Link>Targets\NullTarget.cs</Link>

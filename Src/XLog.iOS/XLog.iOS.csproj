@@ -37,8 +37,8 @@
     <Compile Include="..\XLog.SharedFiles\Targets\ConsoleTarget.cs">
       <Link>Targets\ConsoleTarget.cs</Link>
     </Compile>
-    <Compile Include="..\XLog.SharedFiles\Targets\DebugTarget.cs">
-      <Link>Targets\DebugTarget.cs</Link>
+    <Compile Include="..\XLog.SharedFiles\Targets\DelegateTarget.cs">
+      <Link>Targets\DelegateTarget.cs</Link>
     </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\FastFileTarget.cs">
       <Link>Targets\FastFileTarget.cs</Link>

@@ -38,7 +38,7 @@ namespace XLog.Formatters
             
             if (_categoryResolver != null)
             {
-                builder.Append(entry.Category);
+                builder.Append(_categoryResolver.GetString(entry.Category));
                 builder.Append("|");
             }
 
