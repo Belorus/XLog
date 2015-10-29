@@ -1,4 +1,4 @@
-namespace XLog.NET.Targets
+namespace XLog
 {
     public interface IFileTarget
     {

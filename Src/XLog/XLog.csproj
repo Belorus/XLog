@@ -39,6 +39,7 @@
     <Compile Include="Formatters\LineFormatter.cs" />
     <Compile Include="Formatters\NullFormatter.cs" />
     <Compile Include="Formatters\FixedStringBuilderPool.cs" />
+    <Compile Include="IFileTarget.cs" />
     <Compile Include="LogConfig.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="IFormatter.cs" />

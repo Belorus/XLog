@@ -86,9 +86,6 @@
     <Compile Include="..\XLog.SharedFiles\Targets\DebugTarget.cs">
       <Link>Targets\DebugTarget.cs</Link>
     </Compile>
-    <Compile Include="..\XLog.SharedFiles\Targets\IFileTarget.cs">
-      <Link>Targets\IFileTarget.cs</Link>
-    </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\NullTarget.cs">
       <Link>Targets\NullTarget.cs</Link>
     </Compile>

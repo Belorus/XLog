@@ -43,9 +43,6 @@
     <Compile Include="..\XLog.SharedFiles\Targets\FastFileTarget.cs">
       <Link>Targets\FastFileTarget.cs</Link>
     </Compile>
-    <Compile Include="..\XLog.SharedFiles\Targets\IFileTarget.cs">
-      <Link>Targets\IFileTarget.cs</Link>
-    </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\NullTarget.cs">
       <Link>Targets\NullTarget.cs</Link>
     </Compile>
