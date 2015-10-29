@@ -7,8 +7,8 @@
     <ProjectGuid>{0A6EA82E-D234-4CCB-B53D-0290B2A81954}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>XLog.UWP</RootNamespace>
-    <AssemblyName>XLog.UWP</AssemblyName>
+    <RootNamespace>XLog.W10</RootNamespace>
+    <AssemblyName>XLog.W10</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>
