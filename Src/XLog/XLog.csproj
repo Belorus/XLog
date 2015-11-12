@@ -19,6 +19,7 @@
     <OutputPath>..\..\Bin\$(Configuration)\$(Platform)\$(AssemblyName)\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,6 +40,7 @@
     <Compile Include="Formatters\LineFormatter.cs" />
     <Compile Include="Formatters\NullFormatter.cs" />
     <Compile Include="Formatters\FixedStringBuilderPool.cs" />
+    <Compile Include="Formatters\NumbersFormatter.cs" />
     <Compile Include="IFileTarget.cs" />
     <Compile Include="LogConfig.cs" />
     <Compile Include="Entry.cs" />

@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace XLog.Sample.Console
 {
     internal static class Logic
@@ -6,7 +8,14 @@ namespace XLog.Sample.Console
 
         public static void TestWrite()
         {
-            Log.Info("Hello world!");
+            var sw = Stopwatch.StartNew();
+
+            for (int i = 0; i < 1000000; i++)
+                Log.Info("Hello world!");
+
+            sw.Stop();
+            System.Console.WriteLine("Done in " + sw.ElapsedMilliseconds);
+
         }
     }
 }

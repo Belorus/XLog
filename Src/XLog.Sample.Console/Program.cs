@@ -26,6 +26,8 @@ namespace XLog.Sample.Console
             {
                 LogManager.Default.Flush();
             }
+
+            System.Console.ReadLine();
         }
 
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
@@ -39,7 +41,7 @@ namespace XLog.Sample.Console
             var formatter = new LineFormatter();
             var logConfig = new LogConfig(formatter);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(@"I:\Log.log"));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(@"D:\Log.log"));
 
             LogManager.Init(logConfig);
         }

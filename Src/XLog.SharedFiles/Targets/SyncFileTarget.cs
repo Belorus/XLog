@@ -46,7 +46,7 @@ namespace XLog.NET.Targets
         {
             lock (_syncRoot)
             {
-                _writer.WriteLine(content);
+                _writer.Write(content);
             }
         }
 

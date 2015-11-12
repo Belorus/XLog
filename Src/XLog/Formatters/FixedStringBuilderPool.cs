@@ -3,10 +3,10 @@ using System.Threading;
 
 namespace XLog.Formatters
 {
-    internal static class FixedStringBuilderPool
+    public static class FixedStringBuilderPool
     {
-        private const int BuildersCount = 5;
-        private const int BuilderLength = 200;
+        private const int BuildersCount = 7;
+        private const int BuilderLength = 500;
         private static readonly StringBuilder[] Builders;
         private static int _index = -1;
 

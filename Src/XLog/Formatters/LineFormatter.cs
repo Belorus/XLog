@@ -4,19 +4,7 @@ namespace XLog.Formatters
 {
     public class LineFormatter : IFormatter
     {
-        private const int NumbersCount = 100;
-        private static readonly string[] Numbers;
-
         private readonly ICategoryResolver _categoryResolver;
-
-        static LineFormatter()
-        {
-            Numbers = new string[NumbersCount];
-            for (int i = 0; i < NumbersCount; i++)
-            {
-                Numbers[i] = i.ToString();
-            }
-        }
 
         public LineFormatter(ICategoryResolver categoryResolver = null)
         {
@@ -27,33 +15,46 @@ namespace XLog.Formatters
         {
             int slotNumber;
             var builder = FixedStringBuilderPool.Get(out slotNumber);
-            builder.Append(entry.TimeStamp.ToString("HH:mm:ss:fff"));
-            builder.Append("|");
-            builder.Append(entry.LevelStr);
-            builder.Append("|");
-            builder.Append(Environment.CurrentManagedThreadId < NumbersCount ? Numbers[Environment.CurrentManagedThreadId] : Environment.CurrentManagedThreadId.ToString());
-            builder.Append("|");
-            builder.Append(entry.Tag);
-            builder.Append("|");
-            
-            if (_categoryResolver != null)
+            try
             {
-                builder.Append(_categoryResolver.GetString(entry.Category));
+                var dt = entry.TimeStamp;
+                builder.AppendDigitsFast(dt.Hour, 2);
+                builder.Append(':');
+                builder.AppendDigitsFast(dt.Minute, 2);
+                builder.Append(':');
+                builder.AppendDigitsFast(dt.Second, 2);
+                builder.Append(':');
+                builder.AppendDigitsFast(dt.Millisecond, 3);
+
                 builder.Append("|");
-            }
+                builder.Append(entry.LevelStr);
+                builder.Append("|");
+                builder.AppendDigitsFast(Environment.CurrentManagedThreadId, 0);
+                builder.Append("|");
+                builder.Append(entry.Tag);
+                builder.Append("|");
 
-            builder.Append(entry.Message);
-            if (entry.Exception != null)
+                if (_categoryResolver != null)
+                {
+                    builder.Append(_categoryResolver.GetString(entry.Category));
+                    builder.Append("|");
+                }
+
+                builder.Append(entry.Message);
+                if (entry.Exception != null)
+                {
+                    builder.Append(" --> ");
+                    builder.Append(entry.Exception);
+                }
+
+                builder.AppendLine();
+
+                return builder.ToString();
+            }
+            finally
             {
-                builder.Append(" --> ");
-                builder.Append(entry.Exception);
+                FixedStringBuilderPool.Return(slotNumber, builder);
             }
-
-            var str = builder.ToString();
-
-            FixedStringBuilderPool.Return(slotNumber, builder);
-
-            return str;
         }
 
     }
