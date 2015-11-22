@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace XLog
 {
@@ -21,6 +22,21 @@ namespace XLog
         public static void Init(LogConfig config)
         {
             _instance = new LogManager(config);
+
+            string initMessage = string.Format(@"
+>>> LogManager initialized successfully.
+>>> UTC time: {0}
+>>> Targets:
+{1}",
+                DateTime.UtcNow.ToString("R"),
+                string.Join(
+                    Environment.NewLine, 
+                    config.TargetConfigs.Select(t => string.Format("\t'{0}' [{1} - {2}]", 
+                                                                    t.Target.GetType().Name, 
+                                                                    t.MinLevel, 
+                                                                    t.MaxLevel))));
+
+            _instance.GetLogger("XLog.LogManager").Info(initMessage);
         }
 
         public Logger GetLogger(string tag, LogConfig config = null)

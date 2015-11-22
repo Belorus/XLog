@@ -6,8 +6,8 @@
         {
             "TRACE",
             "DEBUG",
-            "INFO",
-            "WARN",
+            "INFO ",
+            "WARN ",
             "ERROR",
             "FATAL"
         };

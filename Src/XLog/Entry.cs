@@ -20,7 +20,7 @@ namespace XLog
             Message = message;
             Category = category;
             Exception = ex;
-            TimeStamp = DateTime.UtcNow;
+            TimeStamp = DateTime.Now;
         }
     }
 }

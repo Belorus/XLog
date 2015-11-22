@@ -21,8 +21,8 @@ namespace XLog.Formatters
 
         public static StringBuilder Get(out int num)
         {
-            // If there all slots in array == null - the thread will spin until one is returned
-            // I hope this situation will never happen. 5 threads concurrently writing logs on mobile platforms is something very unusual
+            // If all slots in array == null - the thread will spin until one is returned
+            // I hope this situation will never happen. 7 threads concurrently writing logs on mobile platform is something very unusual
             int index;
             StringBuilder builder;
             do
