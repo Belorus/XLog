@@ -13,6 +13,36 @@ namespace XLog
             _config = config;
         }
 
+        public bool IsTraceEnabled
+        {
+            get { return _config.IsLevelEnabled((int)LogLevel.Trace); }
+        }
+
+        public bool IsDebugEnabled
+        {
+            get { return _config.IsLevelEnabled((int)LogLevel.Debug); }
+        }
+
+        public bool IsInfoEnabled
+        {
+            get { return _config.IsLevelEnabled((int)LogLevel.Info); }
+        }
+
+        public bool IsErrorEnabled
+        {
+            get { return _config.IsLevelEnabled((int)LogLevel.Error); }
+        }
+
+        public bool IsFatalEnabled
+        {
+            get { return _config.IsLevelEnabled((int)LogLevel.Fatal); }
+        }
+
+        public bool IsLevelEnabled(LogLevel level)
+        {
+            return _config.IsLevelEnabled((int) level);
+        }
+
         public void Trace(string message, Exception ex = null)
         {
             Log(LogLevel.Trace, 0L, message, ex);

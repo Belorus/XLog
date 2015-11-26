@@ -11,7 +11,7 @@ namespace XLog.NET.Targets
 
         public override void Write(string content)
         {
-            Console.WriteLine(content);
+            Console.Write(content);
         }
     }
 }

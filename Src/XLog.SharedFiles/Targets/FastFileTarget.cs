@@ -66,7 +66,7 @@ namespace XLog.NET.Targets
             {
                 foreach (var s in _collection.GetConsumingEnumerable())
                 {
-                    writer.WriteLine(s);
+                    writer.Write(s);
                 }
             }
         }
