@@ -59,7 +59,7 @@ namespace XLog.Sample.Winforms
             var formatter = new LineFormatter();
             var logConfig = new LogConfig(formatter);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(@"I:\Log.log"));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(@"D:\Log.log"));
 
             LogManager.Init(logConfig);
         }

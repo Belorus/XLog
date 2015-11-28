@@ -7,7 +7,15 @@ namespace XLog.Sample.Winforms
 {
     public partial class Form1 : Form
     {
-        private readonly Logger Log = LogManager.Default.GetLogger("Form1");
+        class FinalizeableClass
+        {
+            ~FinalizeableClass()
+            {
+                throw new Exception("Exception in finalizer");
+            }
+        }
+
+        private static readonly Logger Log = LogManager.Default.GetLogger("Form1");
 
         public Form1()
         {
@@ -38,6 +46,22 @@ namespace XLog.Sample.Winforms
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            new FinalizeableClass();
+
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
+        }
+
+        private async void button5_Click(object sender, EventArgs e)
+        {
+            await Task.Delay(100);
+
+            throw new Exception("Async void exception");
         }
     }
 }
