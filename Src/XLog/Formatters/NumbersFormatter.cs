@@ -4,8 +4,8 @@ namespace XLog.Formatters
 {
     internal static unsafe class NumbersFormatter
     {
-        public static void AppendDigitsFast(this StringBuilder builder, int value, int len)
-        {
+        public static void AppendDigitsFast(this StringBuilder builder, int value, int len, char padding = '0')
+        {            
             const int maxLen = 4;
 
             char* buffer = stackalloc char[maxLen];
@@ -24,7 +24,7 @@ namespace XLog.Formatters
             //a zero if the string only has one character.
             while ((digits < len) && (p > buffer))
             {
-                *--p = '0';
+                *--p = padding;
                 digits++;
             }
 

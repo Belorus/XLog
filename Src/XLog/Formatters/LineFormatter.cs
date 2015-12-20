@@ -29,7 +29,7 @@ namespace XLog.Formatters
                 builder.Append("|");
                 builder.Append(entry.LevelStr);
                 builder.Append("|");
-                builder.AppendDigitsFast(Environment.CurrentManagedThreadId, 0);
+                builder.AppendDigitsFast(Environment.CurrentManagedThreadId, 2, ' ');
                 builder.Append("|");
                 builder.Append(entry.Tag);
                 builder.Append("|");
