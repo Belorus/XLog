@@ -18,7 +18,7 @@ namespace XLog.NET.Targets
         {
         }
 
-        public SyncFileTarget(IFormatter formatter, string logFilePath)
+        public SyncFileTarget(IFormatter formatter, string logFilePath, bool autoFlush = false)
             : base(formatter)
         {
             _logFileDirectory = Path.GetDirectoryName(logFilePath);
@@ -35,6 +35,7 @@ namespace XLog.NET.Targets
             {
                 var file = File.Open(_logFilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
                 _writer = new StreamWriter(file, Encoding.UTF8);
+                _writer.AutoFlush = autoFlush;
             }
             catch (IOException)
             {
