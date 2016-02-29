@@ -9,9 +9,38 @@ namespace XLog.NET.Targets
         {
         }
 
+        public override void Write(Entry entry, IFormatter formatter)
+        {
+            lock (typeof (ConsoleTarget))
+            {
+                var oldColor = Console.ForegroundColor;
+
+                switch (entry.Level)
+                {
+                    case LogLevel.Warn:
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        break;
+
+                    case LogLevel.Error:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        break;
+
+                    case LogLevel.Fatal:
+                        Console.ForegroundColor = ConsoleColor.Magenta;
+                        break;
+                }
+
+                var content = (Formatter ?? formatter).Format(entry);
+
+                Console.Write(content);
+
+                Console.ForegroundColor = oldColor;
+            }
+        }
+
         public override void Write(string content)
         {
-            Console.Write(content);
+            throw new NotImplementedException();
         }
     }
 }
