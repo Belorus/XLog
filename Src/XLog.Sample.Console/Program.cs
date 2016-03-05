@@ -41,7 +41,7 @@ namespace XLog.Sample.Console
             var formatter = new LineFormatter();
             var logConfig = new LogConfig(formatter);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(@"D:\Log.log"));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new InMemoryBufferTarget(65536));
 
             LogManager.Init(logConfig);
         }
