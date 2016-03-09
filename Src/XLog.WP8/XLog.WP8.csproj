@@ -86,6 +86,9 @@
     <Compile Include="..\XLog.SharedFiles\Targets\DelegateTarget.cs">
       <Link>Targets\DelegateTarget.cs</Link>
     </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\InMemoryBufferTarget.cs">
+      <Link>Targets\InMemoryBufferTarget.cs</Link>
+    </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\NullTarget.cs">
       <Link>Targets\NullTarget.cs</Link>
     </Compile>

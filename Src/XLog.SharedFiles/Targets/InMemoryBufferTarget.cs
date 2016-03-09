@@ -1,8 +1,9 @@
 using System;
+using System.Text;
 
 namespace XLog.NET.Targets
 {
-    public class InMemoryBufferTarget : Target
+    public class InMemoryBufferTarget : Target, ILogStorage
     {
         private readonly char[] _buffer;
         private int _curPos;
@@ -34,7 +35,14 @@ namespace XLog.NET.Targets
 
         public string GetContents()
         {
-            return new string(_buffer, _curPos, _buffer.Length - _curPos) + new string(_buffer, 0, _curPos);            
+            return new string(_buffer, _curPos, _buffer.Length - _curPos) + new string(_buffer, 0, _curPos);
+        }
+
+        public byte[][] GetLastLogs(int count)
+        {
+            string text = GetContents();
+
+            return new[] {Encoding.UTF8.GetBytes(text)};
         }
     }
 }

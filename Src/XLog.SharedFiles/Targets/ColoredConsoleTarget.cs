@@ -2,16 +2,16 @@
 
 namespace XLog.NET.Targets
 {
-    public class ConsoleTarget : Target
+    public class ColoredConsoleTarget : Target
     {
-        public ConsoleTarget(IFormatter formatter = null)
+        public ColoredConsoleTarget(IFormatter formatter = null)
             : base(formatter)
         {
         }
 
         public override void Write(Entry entry, IFormatter formatter)
         {
-            lock (typeof (ConsoleTarget))
+            lock (typeof (ColoredConsoleTarget))
             {
                 var oldColor = Console.ForegroundColor;
 
