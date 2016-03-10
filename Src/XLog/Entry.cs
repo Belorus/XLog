@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace XLog
 {
-    public class Entry
+    public struct Entry
     {
         // This stuff is an optimization. DateTime.Now is a very expensive operation.
         // It makes 2 calls to OS API. First to get time, seconds to calculate timezone offset
@@ -17,7 +17,6 @@ namespace XLog
         }
 
         public LogLevel Level;
-        public string LevelStr;
         public string Tag;
         public string Message;
         public long Category;
@@ -27,7 +26,6 @@ namespace XLog
         public Entry(LogLevel level, string tag, string message, long category, Exception ex)
         {
             Level = level;
-            LevelStr = LogLevels.Levels[(int)level];
             Tag = tag;
             Message = message;
             Category = category;

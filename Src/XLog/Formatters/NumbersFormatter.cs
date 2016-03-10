@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace XLog.Formatters
@@ -6,7 +7,7 @@ namespace XLog.Formatters
     {
         public static void AppendDigitsFast(this StringBuilder builder, int value, int len, char padding = '0')
         {            
-            const int maxLen = 4;
+            int maxLen = len;
 
             char* buffer = stackalloc char[maxLen];
             char* p = buffer + maxLen;
