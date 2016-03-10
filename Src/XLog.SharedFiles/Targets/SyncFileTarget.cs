@@ -5,7 +5,7 @@ using System.Text;
 
 namespace XLog.NET.Targets
 {
-    public class SyncLogStorage : Target, ILogStorage
+    public class SyncFileTarget : Target, ILogStorage
     {
         private readonly object _syncRoot = new object();
         private readonly StreamWriter _writer;
@@ -13,12 +13,12 @@ namespace XLog.NET.Targets
         private readonly string _logFilePath;
         private readonly string _logFileDirectory;
 
-        public SyncLogStorage(string logFilePath)
+        public SyncFileTarget(string logFilePath)
             : this(null, logFilePath)
         {
         }
 
-        public SyncLogStorage(IFormatter formatter, string logFilePath, bool autoFlush = false)
+        public SyncFileTarget(IFormatter formatter, string logFilePath, bool autoFlush = false)
             : base(formatter)
         {
             _logFileDirectory = Path.GetDirectoryName(logFilePath);

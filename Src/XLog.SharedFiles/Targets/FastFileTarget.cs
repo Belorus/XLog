@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace XLog.NET.Targets
 {
-    public class FastLogStorage : Target, ILogStorage
+    public class FastFileTarget : Target, ILogStorage
     {
         private readonly FileStream _file;
         private readonly BlockingCollection<string> _collection;
@@ -18,7 +18,7 @@ namespace XLog.NET.Targets
 
         private bool _disposed;
 
-        public FastLogStorage(IFormatter formatter, string logFilePath)
+        public FastFileTarget(IFormatter formatter, string logFilePath)
             : base(formatter)
         {
             _logFileDirectory = Path.GetDirectoryName(logFilePath);
