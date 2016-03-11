@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using XLog.Formatters;
 
 namespace XLog
 {
@@ -7,13 +8,15 @@ namespace XLog
     {
         private static LogManager _instance;
 
+        private static readonly Lazy<LogManager> _defaultLogManager = new Lazy<LogManager>(() => new LogManager(new LogConfig(new NullFormatter()) { IsEnabled = false }));
+
         public static LogManager Default
         {
-            get { return _instance; }
+            get { return _instance ?? _defaultLogManager.Value; }
         }
 
         public readonly LogConfig Config;
-        
+
         private LogManager(LogConfig config)
         {
             Config = config;
@@ -30,10 +33,10 @@ namespace XLog
 {1}",
                 DateTime.UtcNow.ToString("R"),
                 string.Join(
-                    Environment.NewLine, 
-                    config.TargetConfigs.Select(t => string.Format("\t'{0}' [{1} - {2}]", 
-                                                                    t.Target.GetType().Name, 
-                                                                    t.MinLevel, 
+                    Environment.NewLine,
+                    config.TargetConfigs.Select(t => string.Format("\t'{0}' [{1} - {2}]",
+                                                                    t.Target.GetType().Name,
+                                                                    t.MinLevel,
                                                                     t.MaxLevel))));
 
             _instance.GetLogger("XLog.LogManager").Info(initMessage);
