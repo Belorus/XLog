@@ -16,6 +16,12 @@ namespace XLog.Formatters
         {
             int len = 25 + entry.Tag.Length + entry.Message.Length;
 
+            // This fallback is needed because of possible huge stack allocation. 
+            if (len > 100*1024)
+            {
+                return FormatSlow(entry);
+            }
+
             string categoryString = null;
             string exceptionString = null;
 
@@ -111,6 +117,52 @@ namespace XLog.Formatters
             }
 
             buffer += maxLen;
+        }
+
+        public string FormatSlow(Entry entry)
+        {
+            int slotNumber;
+            var builder = FixedStringBuilderPool.Get(out slotNumber);
+            try
+            {
+                var dt = entry.TimeStamp;
+                builder.AppendDigitsFast(dt.Hour, 2);
+                builder.Append(':');
+                builder.AppendDigitsFast(dt.Minute, 2);
+                builder.Append(':');
+                builder.AppendDigitsFast(dt.Second, 2);
+                builder.Append(':');
+                builder.AppendDigitsFast(dt.Millisecond, 3);
+
+                builder.Append("|");
+                builder.Append(LogLevels.Levels[(int)entry.Level]);
+                builder.Append("|");
+                builder.AppendDigitsFast(Environment.CurrentManagedThreadId, 2, ' ');
+                builder.Append("|");
+                builder.Append(entry.Tag);
+                builder.Append("|");
+
+                if (_categoryResolver != null)
+                {
+                    builder.Append(_categoryResolver.GetString(entry.Category));
+                    builder.Append("|");
+                }
+
+                builder.Append(entry.Message);
+                if (entry.Exception != null)
+                {
+                    builder.Append(" --> ");
+                    builder.Append(entry.Exception);
+                }
+
+                builder.AppendLine();
+
+                return builder.ToString();
+            }
+            finally
+            {
+                FixedStringBuilderPool.Return(slotNumber, builder);
+            }
         }
     }
 }
