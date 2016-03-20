@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace XLog.NET.Targets
@@ -24,7 +25,8 @@ namespace XLog.NET.Targets
             _logFileDirectory = Path.GetDirectoryName(logFilePath);
             _logFilePath = logFilePath;
 
-            Directory.CreateDirectory(_logFileDirectory);
+            if (!string.IsNullOrEmpty(_logFileDirectory))
+                Directory.CreateDirectory(_logFileDirectory);
 
             if (File.Exists(_logFilePath))
             {
