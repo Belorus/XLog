@@ -6,10 +6,14 @@ namespace XLog.Formatters
     public class LineFormatter : IFormatter
     {
         private readonly ICategoryResolver _categoryResolver;
+        private readonly bool _doAsyncExceptionCleanup;
 
-        public LineFormatter(ICategoryResolver categoryResolver = null)
+        public LineFormatter(
+            ICategoryResolver categoryResolver = null, 
+            bool doAsyncExceptionCleanup = true)
         {
             _categoryResolver = categoryResolver;
+            _doAsyncExceptionCleanup = doAsyncExceptionCleanup;
         }
 
         public unsafe string Format(Entry entry)
@@ -35,6 +39,11 @@ namespace XLog.Formatters
             if (entry.Exception != null)
             {
                 exceptionString = entry.Exception.ToString();
+
+                if (_doAsyncExceptionCleanup)
+                {
+                    exceptionString = ExceptionUtil.CleanStackTrace(exceptionString);
+                }
 
                 len += exceptionString.Length + 5;
             }
@@ -152,7 +161,14 @@ namespace XLog.Formatters
                 if (entry.Exception != null)
                 {
                     builder.Append(" --> ");
-                    builder.Append(entry.Exception);
+
+                    string exceptionString = entry.Exception.ToString();
+                    if (_doAsyncExceptionCleanup)
+                    {
+                        exceptionString = ExceptionUtil.CleanStackTrace(exceptionString);
+                    }
+
+                    builder.Append(exceptionString);
                 }
 
                 builder.AppendLine();
