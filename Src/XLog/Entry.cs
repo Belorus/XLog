@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 
 namespace XLog
 {
@@ -7,13 +6,11 @@ namespace XLog
     {
         // This stuff is an optimization. DateTime.Now is a very expensive operation.
         // It makes 2 calls to OS API. First to get time, seconds to calculate timezone offset
-        private static readonly long BaseTimeTicks;
-        private static readonly Stopwatch Delta;
+        private static readonly long TimezoneOffsetTicks;
 
         static Entry()
         {
-            BaseTimeTicks = DateTime.Now.Ticks;
-            Delta = Stopwatch.StartNew();
+            TimezoneOffsetTicks = (DateTime.UtcNow - DateTime.Now).Ticks;
         }
 
         public LogLevel Level;
@@ -30,7 +27,7 @@ namespace XLog
             Message = message;
             Category = category;
             Exception = ex;
-            TimeStamp = new DateTime(BaseTimeTicks + Delta.ElapsedTicks);
+            TimeStamp = DateTime.UtcNow.AddTicks(TimezoneOffsetTicks);
         }
     }
 }
