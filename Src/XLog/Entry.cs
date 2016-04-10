@@ -10,7 +10,7 @@ namespace XLog
 
         static Entry()
         {
-            TimezoneOffsetTicks = (DateTime.UtcNow - DateTime.Now).Ticks;
+            TimezoneOffsetTicks = (DateTime.Now - DateTime.UtcNow).Ticks;
         }
 
         public LogLevel Level;
