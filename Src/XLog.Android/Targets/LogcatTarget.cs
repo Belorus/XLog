@@ -1,5 +1,6 @@
 using System;
 using Android.Util;
+using XLog.Formatters;
 
 namespace XLog.Android.Targets
 {

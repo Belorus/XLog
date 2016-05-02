@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using XLog.Categories;
 using XLog.Formatters;
 using XLog.NET.Targets;
 
@@ -15,7 +16,7 @@ namespace XLog.Sample.Console
 
             try
             {
-                Logic.TestWrite();
+                Logic.TestCategory();
             }
             catch (Exception ex)
             {
@@ -33,15 +34,15 @@ namespace XLog.Sample.Console
         private static void TaskSchedulerOnUnobservedTaskException(object sender, UnobservedTaskExceptionEventArgs e)
         {
             LogManager.Default.GetLogger("UnobservedCrashLogger").Error("oops", e.Exception);
-
         }
 
         private static void InitLogger()
         {
-            var formatter = new LineFormatter();
-            var logConfig = new LogConfig(formatter);
+            var categoryRegistry = new LogCategoryRegistrar();
+            var formatter = new LineFormatter(new DefaultCategoryFormatter(categoryRegistry));
+            var logConfig = new LogConfig(formatter, categoryRegistry);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget("XLog.log"));
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
 
             LogManager.Init(logConfig);
         }

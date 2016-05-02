@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
+using XLog.Categories;
 
 namespace XLog.Formatters
 {
     public class LineFormatter : IFormatter
     {
-        private readonly ICategoryResolver _categoryResolver;
+        private readonly ICategoryFormatter _categoryFormatter;
         private readonly bool _doAsyncExceptionCleanup;
 
         public LineFormatter(
-            ICategoryResolver categoryResolver = null, 
+            ICategoryFormatter categoryFormatter = null, 
             bool doAsyncExceptionCleanup = true)
         {
-            _categoryResolver = categoryResolver;
+            _categoryFormatter = categoryFormatter;
             _doAsyncExceptionCleanup = doAsyncExceptionCleanup;
         }
 
@@ -29,9 +30,9 @@ namespace XLog.Formatters
             string categoryString = null;
             string exceptionString = null;
 
-            if (_categoryResolver != null)
+            if (_categoryFormatter != null)
             {
-                categoryString = _categoryResolver.GetString(entry.Category);
+                categoryString = _categoryFormatter.GetString(entry.Category);
 
                 len += categoryString.Length + 1;
             }
@@ -69,7 +70,7 @@ namespace XLog.Formatters
             Append(&ptr, entry.Tag);
             Append(&ptr, '|');
 
-            if (_categoryResolver != null)
+            if (_categoryFormatter != null)
             {
                 Append(&ptr, categoryString);
                 Append(&ptr, '|');
@@ -151,9 +152,9 @@ namespace XLog.Formatters
                 builder.Append(entry.Tag);
                 builder.Append("|");
 
-                if (_categoryResolver != null)
+                if (_categoryFormatter != null)
                 {
-                    builder.Append(_categoryResolver.GetString(entry.Category));
+                    builder.Append(_categoryFormatter.GetString(entry.Category));
                     builder.Append("|");
                 }
 

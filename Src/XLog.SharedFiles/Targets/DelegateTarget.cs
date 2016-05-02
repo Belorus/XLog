@@ -1,4 +1,5 @@
 ﻿using System;
+using XLog.Formatters;
 
 namespace XLog.NET.Targets
 {

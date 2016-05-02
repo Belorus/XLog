@@ -1,4 +1,6 @@
 ﻿
+using XLog.Formatters;
+
 namespace XLog
 {
     public abstract class Target

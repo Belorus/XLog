@@ -1,4 +1,4 @@
-﻿namespace XLog
+﻿namespace XLog.Formatters
 {
     public interface IFormatter
     {

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using XLog.Categories;
 using XLog.Formatters;
 
 namespace XLog
@@ -8,7 +8,7 @@ namespace XLog
     {
         private static LogManager _instance;
 
-        private static readonly Lazy<LogManager> _defaultLogManager = new Lazy<LogManager>(() => new LogManager(new LogConfig(new NullFormatter()) { IsEnabled = false }));
+        private static readonly Lazy<LogManager> _defaultLogManager = new Lazy<LogManager>(() => new LogManager(new LogConfig(new NullFormatter(), new LogCategoryRegistrar()) { IsEnabled = false }));
 
         public static LogManager Default
         {
@@ -26,18 +26,7 @@ namespace XLog
         {
             _instance = new LogManager(config);
 
-            string initMessage = string.Format(@"
->>> LogManager initialized successfully.
->>> UTC time: {0}
->>> Targets:
-{1}",
-                DateTime.UtcNow.ToString("R"),
-                string.Join(
-                    Environment.NewLine,
-                    config.TargetConfigs.Select(t => string.Format("\t'{0}' [{1} - {2}]",
-                                                                    t.Target.GetType().Name,
-                                                                    t.MinLevel,
-                                                                    t.MaxLevel))));
+            string initMessage = $@">>> LogManager initialized successfully. UTC time: {DateTime.UtcNow.ToString("R")}";
 
             _instance.GetLogger("XLog.LogManager").Info(initMessage);
         }
@@ -46,7 +35,7 @@ namespace XLog
         {
             if (string.IsNullOrWhiteSpace(tag))
             {
-                throw new ArgumentNullException("tag");
+                throw new ArgumentNullException(nameof(tag));
             }
 
             return new Logger(tag, config ?? Config);

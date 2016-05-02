@@ -36,16 +36,18 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Categories\DefaultCategoryFormatter.cs" />
     <Compile Include="ExceptionUtil.cs" />
-    <Compile Include="Formatters\ICategoryResolver.cs" />
+    <Compile Include="Categories\ICategoryFormatter.cs" />
     <Compile Include="Formatters\LineFormatter.cs" />
     <Compile Include="Formatters\NullFormatter.cs" />
     <Compile Include="Formatters\FixedStringBuilderPool.cs" />
     <Compile Include="Formatters\NumbersFormatter.cs" />
     <Compile Include="ILogStorage.cs" />
+    <Compile Include="Categories\LogCategoryRegistrar.cs" />
     <Compile Include="LogConfig.cs" />
     <Compile Include="Entry.cs" />
-    <Compile Include="IFormatter.cs" />
+    <Compile Include="Formatters\IFormatter.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LogLevel.cs" />

@@ -1,18 +1,23 @@
 ﻿using System.Collections.Generic;
+using XLog.Categories;
+using XLog.Formatters;
 
 namespace XLog
 {
     public class LogConfig
     {
         public readonly IFormatter Formatter;
+        public readonly LogCategoryRegistrar CategoryRegistrar;
+
         internal List<TargetConfig> TargetConfigs;
         internal readonly bool[] Levels;
 
         public bool IsEnabled = true;
 
-        public LogConfig(IFormatter formatter)
+        public LogConfig(IFormatter formatter, LogCategoryRegistrar categoryRegistry = null)
         {
             Formatter = formatter;
+            CategoryRegistrar = categoryRegistry ?? new LogCategoryRegistrar();
             TargetConfigs = new List<TargetConfig>();
             Levels = new bool[LogLevels.Levels.Length];
         }
