@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{76A11647-5548-4334-B038-15F251F749DD}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>XLog</RootNamespace>
+    <AssemblyName>XLog.Unity</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <IntermediateOutputPath>..\..\Build\Obj\$(Configuration)\$(Platform)\$(AssemblyName)\</IntermediateOutputPath>
+    <OutputPath>..\..\Bin\$(Configuration)\$(Platform)\$(AssemblyName)\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineConstants>DEBUG;TRACE;UNITY</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineConstants>TRACE;UNITY</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\XLog\Categories\DefaultCategoryFormatter.cs">
+      <Link>Categories\DefaultCategoryFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Categories\ICategoryFormatter.cs">
+      <Link>Categories\ICategoryFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Categories\LogCategoryRegistrar.cs">
+      <Link>Categories\LogCategoryRegistrar.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Entry.cs">
+      <Link>Entry.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\ExceptionUtil.cs">
+      <Link>ExceptionUtil.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Formatters\FixedStringBuilderPool.cs">
+      <Link>Formatters\FixedStringBuilderPool.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Formatters\IFormatter.cs">
+      <Link>Formatters\IFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Formatters\LineFormatter.cs">
+      <Link>Formatters\LineFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Formatters\NullFormatter.cs">
+      <Link>Formatters\NullFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Formatters\NumbersFormatter.cs">
+      <Link>Formatters\NumbersFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\ILogStorage.cs">
+      <Link>ILogStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\LogConfig.cs">
+      <Link>LogConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\LogEnvironment.cs">
+      <Link>LogEnvironment.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Logger.cs">
+      <Link>Logger.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\LogLevel.cs">
+      <Link>LogLevel.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\LogManager.cs">
+      <Link>LogManager.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\Target.cs">
+      <Link>Target.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog\TargetConfig.cs">
+      <Link>TargetConfig.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\ColoredConsoleTarget.cs">
+      <Link>Targets\ColoredConsoleTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\ConsoleTarget.cs">
+      <Link>Targets\ConsoleTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\DelegateTarget.cs">
+      <Link>Targets\DelegateTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\InMemoryBufferTarget.cs">
+      <Link>Targets\InMemoryBufferTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\NullTarget.cs">
+      <Link>Targets\NullTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\SyncFileTarget.cs">
+      <Link>Targets\SyncFileTarget.cs</Link>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

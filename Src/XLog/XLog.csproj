@@ -48,6 +48,7 @@
     <Compile Include="LogConfig.cs" />
     <Compile Include="Entry.cs" />
     <Compile Include="Formatters\IFormatter.cs" />
+    <Compile Include="LogEnvironment.cs" />
     <Compile Include="Target.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="LogLevel.cs" />

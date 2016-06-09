@@ -1,6 +1,4 @@
-﻿using System;
-using System.Runtime.CompilerServices;
-using XLog.Categories;
+﻿using XLog.Categories;
 
 namespace XLog.Formatters
 {
@@ -65,7 +63,7 @@ namespace XLog.Formatters
             Append(&ptr, LogLevels.Levels[(int) entry.Level]);
 
             Append(&ptr, '|');
-            AppendDigitsFast(ref ptr, Environment.CurrentManagedThreadId, 2, ' ');
+            AppendDigitsFast(ref ptr, LogEnvironment.CurrentManagedThreadId, 2, ' ');
             Append(&ptr, '|');
             Append(&ptr, entry.Tag);
             Append(&ptr, '|');
@@ -90,7 +88,7 @@ namespace XLog.Formatters
             return new string(charBuffer, 0, len);
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void Append(char** buffer, string s)
         {
             char* ptr = *buffer;
@@ -100,14 +98,14 @@ namespace XLog.Formatters
             *buffer += s.Length;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void Append(char** buffer, char c)
         {
             **buffer = c;
             *buffer += 1;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe void AppendDigitsFast(ref char* buffer, int value, int maxLen, char padding = '0')
         {
             char* p = buffer + maxLen;
@@ -147,7 +145,7 @@ namespace XLog.Formatters
                 builder.Append("|");
                 builder.Append(LogLevels.Levels[(int)entry.Level]);
                 builder.Append("|");
-                builder.AppendDigitsFast(Environment.CurrentManagedThreadId, 2, ' ');
+                builder.AppendDigitsFast(LogEnvironment.CurrentManagedThreadId, 2, ' ');
                 builder.Append("|");
                 builder.Append(entry.Tag);
                 builder.Append("|");

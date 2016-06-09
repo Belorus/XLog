@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using XLog.Formatters;
 
@@ -11,7 +10,7 @@ namespace XLog.NET.Targets
     {
         private readonly object _syncRoot = new object();
         private readonly StreamWriter _writer;
-        
+
         private readonly string _logFilePath;
         private readonly string _logFileDirectory;
 

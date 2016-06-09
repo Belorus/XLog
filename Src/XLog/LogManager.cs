@@ -8,11 +8,11 @@ namespace XLog
     {
         private static LogManager _instance;
 
-        private static readonly Lazy<LogManager> _defaultLogManager = new Lazy<LogManager>(() => new LogManager(new LogConfig(new NullFormatter(), new LogCategoryRegistrar()) { IsEnabled = false }));
+        private static readonly LogManager NullLogManager = new LogManager(new LogConfig(new NullFormatter(), new LogCategoryRegistrar()) { IsEnabled = false });
 
         public static LogManager Default
         {
-            get { return _instance ?? _defaultLogManager.Value; }
+            get { return _instance ?? NullLogManager; }
         }
 
         public readonly LogConfig Config;
@@ -33,7 +33,7 @@ namespace XLog
 
         public Logger GetLogger(string tag, LogConfig config = null)
         {
-            if (string.IsNullOrWhiteSpace(tag))
+            if (string.IsNullOrEmpty(tag))
             {
                 throw new ArgumentNullException(nameof(tag));
             }

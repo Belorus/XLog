@@ -137,7 +137,7 @@ namespace XLog
                     }
                     catch (Exception e)
                     {
-                        System.Diagnostics.Debug.WriteLine("Target write failed. --> {0}", e);
+                        System.Diagnostics.Debug.WriteLine(string.Format("Target write failed. --> {0}", e));
                     }
                 }
             }

@@ -36,7 +36,7 @@ namespace XLog.Formatters
 
         public static void Return(int num, StringBuilder sb)
         {
-            sb.Clear();
+            sb.Length = 0;
             Builders[num] = sb;
         }
     }
