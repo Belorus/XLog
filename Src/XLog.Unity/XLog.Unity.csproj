@@ -16,7 +16,6 @@
     <OutputPath>..\..\Bin\$(Configuration)\$(Platform)\$(AssemblyName)\</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,14 +53,11 @@
     <Compile Include="..\XLog\Formatters\IFormatter.cs">
       <Link>Formatters\IFormatter.cs</Link>
     </Compile>
-    <Compile Include="..\XLog\Formatters\LineFormatter.cs">
-      <Link>Formatters\LineFormatter.cs</Link>
-    </Compile>
     <Compile Include="..\XLog\Formatters\NullFormatter.cs">
       <Link>Formatters\NullFormatter.cs</Link>
     </Compile>
-    <Compile Include="..\XLog\Formatters\NumbersFormatter.cs">
-      <Link>Formatters\NumbersFormatter.cs</Link>
+    <Compile Include="..\XLog\Formatters\SlowLineFormatter.cs">
+      <Link>Formatters\SlowLineFormatter.cs</Link>
     </Compile>
     <Compile Include="..\XLog\ILogStorage.cs">
       <Link>ILogStorage.cs</Link>
