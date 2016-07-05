@@ -88,7 +88,9 @@ namespace XLog.Formatters
             return new string(charBuffer, 0, len);
         }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#if !UNITY
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#endif
         private static unsafe void Append(char** buffer, string s)
         {
             char* ptr = *buffer;
@@ -98,14 +100,18 @@ namespace XLog.Formatters
             *buffer += s.Length;
         }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#if !UNITY
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#endif
         private static unsafe void Append(char** buffer, char c)
         {
             **buffer = c;
             *buffer += 1;
         }
 
-        //[MethodImpl(MethodImplOptions.AggressiveInlining)]
+#if !UNITY
+        [System.Runtime.CompilerServices.MethodImpl(System.Runtime.CompilerServices.MethodImplOptions.AggressiveInlining)]
+#endif
         private static unsafe void AppendDigitsFast(ref char* buffer, int value, int maxLen, char padding = '0')
         {
             char* p = buffer + maxLen;

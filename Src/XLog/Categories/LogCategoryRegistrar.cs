@@ -8,7 +8,7 @@ namespace XLog.Categories
 
         public long Register(string name)
         {
-            long id = _idToNameMap.Count + 1;
+            long id = 1 << _idToNameMap.Count;
 
             _idToNameMap[id] = name;
 

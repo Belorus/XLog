@@ -8,10 +8,12 @@ namespace XLog.Sample.Console
         {
             FirstCategory = LogManager.Default.Config.CategoryRegistrar.Register("FirstCategory");
             SecondCategory = LogManager.Default.Config.CategoryRegistrar.Register("SecondCategory");
+            ThirdCategory = LogManager.Default.Config.CategoryRegistrar.Register("ThirdCategory");
         }
 
         public static readonly long FirstCategory;
         public static readonly long SecondCategory;
+        public static readonly long ThirdCategory;
     }
 
     internal static class Logic
@@ -38,6 +40,7 @@ namespace XLog.Sample.Console
         {
             Log.Info(LogCategory.FirstCategory | LogCategory.SecondCategory, "Test category message");
             Log.Info(LogCategory.SecondCategory, "Test category message");
+            Log.Info(LogCategory.FirstCategory | LogCategory.ThirdCategory, "Test category message");
         }
     }
 }

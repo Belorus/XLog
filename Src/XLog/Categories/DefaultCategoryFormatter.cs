@@ -19,7 +19,7 @@ namespace XLog.Categories
         {
             if (categories == 0)
             {
-                return string.Empty;
+                return Separator;
             }
 
             string orderedCategories;
