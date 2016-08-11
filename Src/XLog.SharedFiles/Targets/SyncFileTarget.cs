@@ -111,7 +111,7 @@ namespace XLog.NET.Targets
                 }
                 catch (IOException)
                 {
-                    // If log file cannot be flushed - we shouldn't crash. 
+                    // If log file cannot be flushed - we shouldn't crash.
                     // Supressing finalization to avoid crash in finalizer
                     GC.SuppressFinalize(_writer);
                     GC.SuppressFinalize(_writer.BaseStream);

@@ -42,7 +42,7 @@ namespace NLog.Sample.Console
 
             config.AddTarget(fileTarget);
             config.LoggingRules.Add(new LoggingRule("*", LogLevel.Info, fileTarget));
-            
+
             LogManager.Configuration = config;
 
 

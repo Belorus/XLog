@@ -20,7 +20,7 @@ namespace XLog.Sample.Winforms
         static void Main()
         {
             InitLogger();
-           
+
             Logger = LogManager.Default.GetLogger("Program");
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
             Application.ThreadException += ApplicationOnThreadException;

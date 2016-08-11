@@ -8,7 +8,7 @@ namespace XLog.Formatters
         private readonly bool _doAsyncExceptionCleanup;
 
         public LineFormatter(
-            ICategoryFormatter categoryFormatter = null, 
+            ICategoryFormatter categoryFormatter = null,
             bool doAsyncExceptionCleanup = true)
         {
             _categoryFormatter = categoryFormatter;
@@ -19,7 +19,7 @@ namespace XLog.Formatters
         {
             int len = 25 + entry.Tag.Length + entry.Message.Length;
 
-            // This fallback is needed because of possible huge stack allocation. 
+            // This fallback is needed because of possible huge stack allocation.
             if (len > 100*1024)
             {
                 return FormatSlow(entry);
@@ -49,7 +49,7 @@ namespace XLog.Formatters
 
             char* charBuffer = stackalloc char[len];
             char* ptr = charBuffer;
-            
+
             var dt = entry.TimeStamp;
             AppendDigitsFast(ref ptr, dt.Hour, 2);
             Append(&ptr, ':');
@@ -59,7 +59,7 @@ namespace XLog.Formatters
             Append(&ptr, ':');
             AppendDigitsFast(ref ptr, dt.Millisecond, 3);
             Append(&ptr, '|');
-            
+
             Append(&ptr, LogLevels.Levels[(int) entry.Level]);
 
             Append(&ptr, '|');

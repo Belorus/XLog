@@ -6,7 +6,7 @@ namespace XLog.Formatters
     internal static unsafe class NumbersFormatter
     {
         public static void AppendDigitsFast(this StringBuilder builder, int value, int len, char padding = '0')
-        {            
+        {
             int maxLen = len;
 
             char* buffer = stackalloc char[maxLen];
