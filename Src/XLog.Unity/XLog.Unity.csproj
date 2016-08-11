@@ -12,8 +12,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <IntermediateOutputPath>..\..\Build\Obj\$(Configuration)\$(Platform)\$(AssemblyName)\</IntermediateOutputPath>
-    <OutputPath>..\..\Bin\$(Configuration)\$(Platform)\$(AssemblyName)\</OutputPath>
+    <OutputPath>$(SolutionDir)..\Bin\$(Configuration)\$(Platform)\$(ProjectName)</OutputPath>
+    <BaseIntermediateOutputPath>$(SolutionDir)..\Build\Obj\</BaseIntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>

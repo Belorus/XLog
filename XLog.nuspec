@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>XLog</id>
+        <version>1.0.0</version>
+        <title>XLog</title>
+        <authors>Grygory Perepechko;Oleg Ilyin</authors>
+        <owners>Playtika</owners>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Minimalistic logging PCL library for (.NET, WP8, UWP, Xamarin iOS, Xamarin Android)</description>
+    </metadata>
+    <files>
+        <!-- PCL -->
+        <file src="Bin\Release\AnyCPU\XLog\XLog.dll" target="lib\portable-net45+win+wp80+MonoAndroid10+xamarinios10+MonoTouch10\XLog.dll" />
+        <file src="Bin\Release\AnyCPU\XLog\XLog.pdb" target="lib\portable-net45+win+wp80+MonoAndroid10+xamarinios10+MonoTouch10\XLog.pdb" />
+
+        <!-- Android -->
+        <file src="Bin\Release\AnyCPU\XLog\XLog.dll" target="lib\MonoAndroid\XLog.dll" />
+        <file src="Bin\Release\AnyCPU\XLog\XLog.pdb" target="lib\MonoAndroid\XLog.pdb" />
+        <file src="Bin\Release\AnyCPU\XLog.Android\XLog.Android.dll" target="lib\MonoAndroid\XLog.Android.dll" />
+        <file src="Bin\Release\AnyCPU\XLog.Android\XLog.Android.pdb" target="lib\MonoAndroid\XLog.Android.pdb" />
+
+        <!-- NET -->
+        <file src="Bin\Release\AnyCPU\XLog\XLog.dll" target="lib\net45\XLog.dll" />
+        <file src="Bin\Release\AnyCPU\XLog\XLog.pdb" target="lib\net45\XLog.pdb" />
+        <file src="Bin\Release\AnyCPU\XLog.NET\XLog.NET.dll" target="lib\net45\XLog.NET.dll" />
+        <file src="Bin\Release\AnyCPU\XLog.NET\XLog.NET.pdb" target="lib\net45\XLog.NET.pdb" />
+        
+        <!-- UWP -->
+        <file src="Bin\Release\AnyCPU\XLog\XLog.dll" target="lib\uap10.0\XLog.dll" />
+        <file src="Bin\Release\AnyCPU\XLog\XLog.pdb" target="lib\uap10.0\XLog.pdb" />
+        <file src="Bin\Release\AnyCPU\XLog.UWP\XLog.W10.dll" target="lib\uap10.0\XLog.W10.dll" />
+        <file src="Bin\Release\AnyCPU\XLog.UWP\XLog.W10.pdb" target="lib\uap10.0\XLog.W10.pdb" />
+
+        <!-- WP8 -->
+        <file src="Bin\Release\AnyCPU\XLog\XLog.dll" target="lib\wp8\XLog.dll" />
+        <file src="Bin\Release\AnyCPU\XLog\XLog.pdb" target="lib\wp8\XLog.pdb" />
+        <file src="Bin\Release\AnyCPU\XLog.WP8\XLog.WP8.dll" target="lib\wp8\XLog.WP8.dll" />
+        <file src="Bin\Release\AnyCPU\XLog.WP8\XLog.WP8.pdb" target="lib\wp8\XLog.WP8.pdb" />
+
+        <!-- IOS -->
+        <file src="Bin\Release\AnyCPU\XLog\XLog.dll" target="lib\Xamarin.iOS10\XLog.dll" />
+        <file src="Bin\Release\AnyCPU\XLog\XLog.pdb" target="lib\Xamarin.iOS10\XLog.pdb" />
+        <file src="Bin\Release\AnyCPU\XLog.iOS\XLog.iOS.dll" target="lib\Xamarin.iOS10\XLog.iOS.dll" />
+        <file src="Bin\Release\AnyCPU\XLog.iOS\XLog.pdb" target="lib\Xamarin.iOS10\XLog.pdb" />
+    </files>
+</package>
