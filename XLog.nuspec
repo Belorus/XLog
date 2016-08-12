@@ -42,6 +42,6 @@
         <file src="Bin\Release\AnyCPU\XLog.dll" target="lib\Xamarin.iOS10\XLog.dll" />
         <file src="Bin\Release\AnyCPU\XLog.pdb" target="lib\Xamarin.iOS10\XLog.pdb" />
         <file src="Bin\Release\AnyCPU\XLog.iOS.dll" target="lib\Xamarin.iOS10\XLog.iOS.dll" />
-        <file src="Bin\Release\AnyCPU\XLog.iOS.pdb" target="lib\Xamarin.iOS10\XLog.pdb" />
+        <file src="Bin\Release\AnyCPU\XLog.iOS.pdb" target="lib\Xamarin.iOS10\XLog.iOS.pdb" />
     </files>
 </package>
