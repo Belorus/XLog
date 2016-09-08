@@ -78,7 +78,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\XLog.Console\XLog.NET.csproj">
+    <ProjectReference Include="..\XLog.NET\XLog.NET.csproj">
       <Project>{4c41451a-1d66-469a-ae1f-acda0e98f0f1}</Project>
       <Name>XLog.NET</Name>
     </ProjectReference>
