@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Text;
 using XLog.Formatters;
 
@@ -11,8 +10,8 @@ namespace XLog.NET.Targets
         private readonly object _syncRoot = new object();
         private readonly StreamWriter _writer;
 
-        private readonly string _logFilePath;
         private readonly string _logFileDirectory;
+        private readonly string _logFilePath;
 
         public SyncFileTarget(string logFilePath)
             : this(null, logFilePath)
@@ -22,20 +21,20 @@ namespace XLog.NET.Targets
         public SyncFileTarget(IFormatter formatter, string logFilePath, bool autoFlush = false)
             : base(formatter)
         {
-            _logFileDirectory = Path.GetDirectoryName(logFilePath);
             _logFilePath = logFilePath;
+            _logFileDirectory = Path.GetDirectoryName(logFilePath);
 
             if (!string.IsNullOrEmpty(_logFileDirectory))
                 Directory.CreateDirectory(_logFileDirectory);
 
-            if (File.Exists(_logFilePath))
+            if (File.Exists(logFilePath))
             {
-                File.Delete(_logFilePath);
+                File.Delete(logFilePath);
             }
 
             try
             {
-                var file = File.Open(_logFilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
+                var file = File.Open(logFilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
                 _writer = new StreamWriter(file, Encoding.UTF8);
                 _writer.AutoFlush = autoFlush;
             }
@@ -53,52 +52,46 @@ namespace XLog.NET.Targets
             }
         }
 
-        public byte[][] GetLastLogs(int count)
+        public string GetLastLogs()
         {
             lock (_syncRoot)
             {
                 Flush();
 
-                FileInfo[] logFiles = Directory.GetFiles(_logFileDirectory)
-                                               .Select(f => new FileInfo(f))
-                                               .OrderByDescending(x => x.CreationTime)
-                                               .Take(count)
-                                               .ToArray();
+                var file = new FileInfo(_logFilePath);
 
-                byte[][] logsContent = new byte[logFiles.Length][];
-
-                for (int i = 0; i < logFiles.Length; i++)
+                int numOfRetries = 3;
+                do
                 {
-                    int numOfRetries = 3;
-                    do
+                    try
                     {
-                        try
-                        {
-                            logsContent[i] = ReadFileContentsSafe(logFiles[i]);
-                        }
-                        catch (IOException)
-                        {
-                        }
-                    } while (logsContent[i] == null && --numOfRetries > 0);
-                }
+                        return ReadFileContentsSafe(file);
+                    }
+                    catch (IOException)
+                    {
+                    }
+                } while (--numOfRetries > 0);
 
-                return logsContent;
+                return string.Empty;
             }
         }
 
-        private static byte[] ReadFileContentsSafe(FileInfo f)
+        private static string ReadFileContentsSafe(FileInfo f)
         {
             string copyName = f.FullName + ".copy";
-            byte[] bytes = new byte[f.Length];
+
             File.Copy(f.FullName, copyName);
-            using (var stream = File.OpenRead(copyName))
+            try
             {
-                stream.Read(bytes, 0, bytes.Length);
+                using (var fileStream = File.OpenText(copyName))
+                {
+                    return fileStream.ReadToEnd();
+                }
             }
-
-            File.Delete(copyName);
-
-            return bytes;
+            finally
+            {
+                File.Delete(copyName);
+            }
         }
 
         public override void Flush()

@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 
 namespace XLog.NET.Targets
 {
@@ -33,16 +32,9 @@ namespace XLog.NET.Targets
             }
         }
 
-        public string GetContents()
+        public string GetLastLogs()
         {
             return new string(_buffer, _curPos, _buffer.Length - _curPos) + new string(_buffer, 0, _curPos);
-        }
-
-        public byte[][] GetLastLogs(int count)
-        {
-            string text = GetContents();
-
-            return new[] {Encoding.UTF8.GetBytes(text)};
         }
     }
 }

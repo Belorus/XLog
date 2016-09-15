@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using XLog.Categories;
 using XLog.Formatters;
 
@@ -36,9 +37,31 @@ namespace XLog
             }
         }
 
+        public string GetLogs()
+        {
+            foreach (var targetConfig in TargetConfigs)
+            {
+                var asLogStorage = targetConfig.Target as ILogStorage;
+                if (asLogStorage != null)
+                {
+                    return asLogStorage.GetLastLogs();
+                }
+            }
+
+            return string.Empty;
+        }
+
         public bool IsLevelEnabled(int logLevel)
         {
             return Levels[logLevel];
+        }
+
+        public void Flush()
+        {
+            foreach (var target in TargetConfigs)
+            {
+                target.Target.Flush();
+            }
         }
     }
 }

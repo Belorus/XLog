@@ -14,25 +14,25 @@ namespace XLog.NET.Targets
         private readonly BlockingCollection<string> _collection;
         private readonly ManualResetEvent _completeEvent = new ManualResetEvent(false);
 
-        private readonly string _logFilePath;
         private readonly string _logFileDirectory;
 
         private bool _disposed;
+        private readonly string _logFilePath;
 
         public FastFileTarget(IFormatter formatter, string logFilePath)
             : base(formatter)
         {
-            _logFileDirectory = Path.GetDirectoryName(logFilePath);
             _logFilePath = logFilePath;
+            _logFileDirectory = Path.GetDirectoryName(logFilePath);
 
             Directory.CreateDirectory(_logFileDirectory);
 
-            if (File.Exists(_logFilePath))
+            if (File.Exists(logFilePath))
             {
-                File.Delete(_logFilePath);
+                File.Delete(logFilePath);
             }
 
-            _file = File.Open(_logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read);
+            _file = File.Open(logFilePath, FileMode.Append, FileAccess.Write, FileShare.Read);
             _collection = new BlockingCollection<string>();
             Start();
         }
@@ -82,38 +82,43 @@ namespace XLog.NET.Targets
             _collection.Add(content);
         }
 
-        public byte[][] GetLastLogs(int count)
+        public string GetLastLogs()
         {
-            FileInfo[] logFiles = Directory.GetFiles(_logFileDirectory).Select(f => new FileInfo(f)).OrderByDescending(x => x.CreationTime).Take(count).ToArray();
+            Flush();
 
-            byte[][] logsContent = null;
+            var file = new FileInfo(_logFilePath);
+
+            int numOfRetries = 3;
             do
             {
                 try
                 {
-                    logsContent = logFiles.Select(ReadFileContentsSafe).ToArray();
+                    return ReadFileContentsSafe(file);
                 }
                 catch (IOException)
                 {
-
                 }
-            } while (logsContent == null);
+            } while (--numOfRetries > 0);
 
-            return logsContent;
+            return string.Empty;
         }
 
-        private static byte[] ReadFileContentsSafe(FileInfo f)
+        private static string ReadFileContentsSafe(FileInfo f)
         {
             string copyName = f.FullName + ".copy";
-            byte[] bytes = new byte[f.Length];
 
             File.Copy(f.FullName, copyName);
-            using (var stream = File.OpenRead(copyName))
-                stream.Read(bytes, 0, bytes.Length);
-            File.Delete(copyName);
-
-            return bytes;
+            try
+            {
+                using (var fileStream = File.OpenText(copyName))
+                {
+                    return fileStream.ReadToEnd();
+                }
+            }
+            finally
+            {
+                File.Delete(copyName);
+            }
         }
-
     }
 }

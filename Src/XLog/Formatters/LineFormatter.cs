@@ -2,17 +2,28 @@
 
 namespace XLog.Formatters
 {
+    public enum LineEnding
+    {
+        None,
+        CR,
+        LF,
+        CRLF
+    }
+
     public class LineFormatter : IFormatter
     {
         private readonly ICategoryFormatter _categoryFormatter;
         private readonly bool _doAsyncExceptionCleanup;
+        private readonly LineEnding _lineEnding;
 
         public LineFormatter(
             ICategoryFormatter categoryFormatter = null, 
-            bool doAsyncExceptionCleanup = true)
+            bool doAsyncExceptionCleanup = true,
+            LineEnding lineEnding = LineEnding.CRLF)
         {
             _categoryFormatter = categoryFormatter;
             _doAsyncExceptionCleanup = doAsyncExceptionCleanup;
+            _lineEnding = lineEnding;
         }
 
         public unsafe string Format(Entry entry)
@@ -82,8 +93,19 @@ namespace XLog.Formatters
                 Append(&ptr, exceptionString);
             }
 
-            Append(&ptr, '\r');
-            Append(&ptr, '\n');
+            switch (_lineEnding)
+            {
+                case LineEnding.CR:
+                    Append(&ptr, '\r');
+                    break;
+                case LineEnding.LF:
+                    Append(&ptr, '\n');
+                    break;
+                case LineEnding.CRLF:
+                    Append(&ptr, '\r');
+                    Append(&ptr, '\n');
+                    break;
+            }
 
             return new string(charBuffer, 0, len);
         }
@@ -176,7 +198,19 @@ namespace XLog.Formatters
                     builder.Append(exceptionString);
                 }
 
-                builder.AppendLine();
+                switch (_lineEnding)
+                {
+                    case LineEnding.CR:
+                        builder.Append('\r');
+                        break;
+                    case LineEnding.LF:
+                        builder.Append('\n');
+                        break;
+                    case LineEnding.CRLF:
+                        builder.Append('\r');
+                        builder.Append('\n');
+                        break;
+                }
 
                 return builder.ToString();
             }
