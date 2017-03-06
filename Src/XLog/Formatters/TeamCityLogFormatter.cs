@@ -3,16 +3,42 @@ using System.Text;
 
 namespace XLog.Formatters
 {
+    public static class TeamCityLogUtils
+    {
+        public static string Escape(string what)
+        {
+            return what
+                .Replace("|", "||")
+                .Replace("'", "|'")
+                .Replace("\n", "|n")
+                .Replace("\r", "|r")
+                .Replace("[", "|[")
+                .Replace("]", "|]");
+        }
+
+        public static string FlowIdClause(string flowId)
+        {
+            string flowIdClause = string.Empty;
+            if (flowId != null)
+            {
+                flowIdClause = $"flowId='{flowId}'";
+            }
+            return flowIdClause;
+        }
+    }
+
     public class TeamCityLogFormatter : IFormatter
     {
         // Forgive me father for I have sinned
         private static readonly object MultilineLock = new object();
 
         private readonly string _flowIdClause;
+        private readonly bool _doAsyncExceptionCleanup;
 
-        public TeamCityLogFormatter(string flowId = null)
+        public TeamCityLogFormatter(string flowId = null, bool doAsyncExceptionCleanup = true)
         {
-            _flowIdClause = flowId != null ? $"flowId='{Escape(flowId)}'" : string.Empty;
+            _doAsyncExceptionCleanup = doAsyncExceptionCleanup;
+            _flowIdClause = TeamCityLogUtils.FlowIdClause(flowId);
         }
 
         public string Format(Entry entry)
@@ -44,7 +70,11 @@ namespace XLog.Formatters
             var errorDetails = string.Empty;
             if (entry.Exception != null)
             {
-                errorDetails = entry.Exception.Message;
+                errorDetails = entry.Exception.ToString();
+                if (_doAsyncExceptionCleanup)
+                {
+                    errorDetails = ExceptionUtil.CleanStackTrace(errorDetails);
+                }
             }
 
             var message = entry.Message;
@@ -77,18 +107,14 @@ namespace XLog.Formatters
             string errorDetails,
             string teamcityStatus)
         {
-            return $"##teamcity[message {flowIdClause} text='{Escape(message)}' timestamp='{timestamp}' errorDetails='{Escape(errorDetails)}' status='{teamcityStatus}']";
+            // Flow id clause doesn't work when you use blocks, so I dunno what to do here other than not use it.
+            //return $"##teamcity[message {flowIdClause} text='{Escape(message)}' timestamp='{timestamp}' errorDetails='{Escape(errorDetails)}' status='{teamcityStatus}']";
+            return $"##teamcity[message text='{Escape(message)}' timestamp='{timestamp}' errorDetails='{Escape(errorDetails)}' status='{teamcityStatus}']";
         }
 
-        private static string Escape(string what)
+        private static string Escape(string str)
         {
-            return what
-                .Replace("|", "||")
-                .Replace("'", "|'")
-                .Replace("\n", "|n")
-                .Replace("\r", "|r")
-                .Replace("[", "|[")
-                .Replace("]", "|]");
+            return TeamCityLogUtils.Escape(str);
         }
     }
 }
