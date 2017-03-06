@@ -7,6 +7,11 @@ namespace XLog.Formatters
     {
         public static string Escape(string what)
         {
+            if (string.IsNullOrEmpty(what))
+            {
+                return string.Empty;
+            }
+
             return what
                 .Replace("|", "||")
                 .Replace("'", "|'")
