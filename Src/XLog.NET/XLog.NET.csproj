@@ -56,6 +56,9 @@
     <Compile Include="..\XLog.SharedFiles\Targets\NullTarget.cs">
       <Link>Targets\NullTarget.cs</Link>
     </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\PlainTcpSocketTarget.cs">
+      <Link>Targets\PlainTcpSocketTarget.cs</Link>
+    </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\SyncFileTarget.cs">
       <Link>Targets\SyncFileTarget.cs</Link>
     </Compile>

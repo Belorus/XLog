@@ -42,7 +42,7 @@ namespace XLog.Sample.Console
             var formatter = new LineFormatter(new DefaultCategoryFormatter(categoryRegistry));
             var logConfig = new LogConfig(formatter, categoryRegistry);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new PlainTcpSocketTarget("logs6.papertrailapp.com", 26613, new SyslogFormatter("GrigoryP_Console", "Slotomania"+DateTime.Now.ToString("u"))));
 
             LogManager.Init(logConfig);
         }
