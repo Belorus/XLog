@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Windows.ApplicationModel.Activation;
 using Windows.Storage;
@@ -6,6 +7,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using XLog.Formatters;
 using XLog.NET.Targets;
+using XLog.W10.Targets;
 
 namespace XLog.Sample.W10
 {
@@ -40,7 +42,7 @@ namespace XLog.Sample.W10
         {
             var formatter = new LineFormatter();
             var logConfig = new LogConfig(formatter);
-
+            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new PlainStreamSocketTarget("logs6.papertrailapp.com", 26613, new SyslogFormatter("GrigoryP_Console", "Slotomania"+DateTime.Now.ToString("u"))));
             logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new SyncFileTarget(Path.Combine(ApplicationData.Current.LocalFolder.Path, @"Log.log")));
 
             LogManager.Init(logConfig);
