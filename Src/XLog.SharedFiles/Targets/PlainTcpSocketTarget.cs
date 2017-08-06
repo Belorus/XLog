@@ -51,7 +51,7 @@ namespace XLog.NET.Targets
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"PlainTcpSocketTarget write failure: " + ex.ToString());
+                    Console.WriteLine("PlainTcpSocketTarget write failure: " + ex.ToString());
 
                     Thread.Sleep(3000);
                 }

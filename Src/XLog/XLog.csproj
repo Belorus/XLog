@@ -40,6 +40,7 @@
     <Compile Include="ExceptionUtil.cs" />
     <Compile Include="Categories\ICategoryFormatter.cs" />
     <Compile Include="Formatters\LineFormatter.cs" />
+    <Compile Include="Formatters\LogmaticFormatter.cs" />
     <Compile Include="Formatters\NullFormatter.cs" />
     <Compile Include="Formatters\FixedStringBuilderPool.cs" />
     <Compile Include="Formatters\NumbersFormatter.cs" />
