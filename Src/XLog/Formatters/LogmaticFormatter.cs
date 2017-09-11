@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization.Json;
-
-namespace XLog.Formatters
+﻿namespace XLog.Formatters
 {
     public class LogmaticFormatter : IFormatter
     {
