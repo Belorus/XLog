@@ -43,10 +43,7 @@ namespace XLog
 
         public void Flush()
         {
-            foreach (var target in Config.TargetConfigs)
-            {
-                target.Target.Flush();
-            }
+            Config.Flush();
         }
     }
 }

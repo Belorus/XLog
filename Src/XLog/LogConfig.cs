@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using XLog.Categories;
 using XLog.Formatters;
 
@@ -39,6 +40,14 @@ namespace XLog
         public bool IsLevelEnabled(int logLevel)
         {
             return Levels[logLevel];
+        }
+
+        public void Flush()
+        {
+            foreach (var target in TargetConfigs)
+            {
+                target.Target.Flush();
+            }
         }
     }
 }
