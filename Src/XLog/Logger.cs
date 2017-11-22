@@ -120,12 +120,13 @@ namespace XLog
 
         private void LogInternal(LogLevel logLevel, string message, long category, Exception ex)
         {
-            if (!_config.IsEnabled || !_config.Levels[(int)logLevel])
+            if (!_config.IsEnabled || !_config.Levels[(int)logLevel] || !_config.CategoryRegistrar.IsEnabled(category))
             {
                 return;
             }
 
             var entry = new Entry(logLevel, Tag, message, category, ex);
+
             for (int index = 0; index < _config.TargetConfigs.Count; index++)
             {
                 var c = _config.TargetConfigs[index];
