@@ -28,7 +28,7 @@ namespace XLog.Formatters
 
         public unsafe string Format(Entry entry)
         {
-            int len = 25 + entry.Tag.Length + entry.Message.Length;
+            int len = 24 + entry.Tag.Length + entry.Message.Length;
 
             // This fallback is needed because of possible huge stack allocation.
             if (len > 100*1024)
@@ -102,6 +102,7 @@ namespace XLog.Formatters
                     Append(&ptr, '\n');
                     break;
                 case LineEnding.CRLF:
+                    len++;
                     Append(&ptr, '\r');
                     Append(&ptr, '\n');
                     break;
