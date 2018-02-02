@@ -46,7 +46,7 @@
         <!-- Mac -->
         <file src="Bin\Release\AnyCPU\XLog.dll" target="lib\xamarinmac20\XLog.dll" />
         <file src="Bin\Release\AnyCPU\XLog.pdb" target="lib\xamarinmac20\XLog.pdb" />
-        <file src="Bin\Release\AnyCPU\XLog.NET.dll" target="lib\xamarinmac20\XLog.NET.dll" />
-        <file src="Bin\Release\AnyCPU\XLog.NET.pdb" target="lib\xamarinmac20\XLog.NET.pdb" />
+        <file src="Bin\Release\AnyCPU\XLog.Mac.dll" target="lib\xamarinmac20\XLog.Mac.dll" />
+        <file src="Bin\Release\AnyCPU\XLog.Mac.pdb" target="lib\xamarinmac20\XLog.Mac.pdb" />
     </files>
 </package>
