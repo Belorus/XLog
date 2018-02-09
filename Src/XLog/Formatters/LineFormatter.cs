@@ -58,6 +58,9 @@ namespace XLog.Formatters
                 len += exceptionString.Length + 5;
             }
 
+            if (_lineEnding == LineEnding.CRLF)
+                len++;
+
             char* charBuffer = stackalloc char[len];
             char* ptr = charBuffer;
 
@@ -102,7 +105,6 @@ namespace XLog.Formatters
                     Append(&ptr, '\n');
                     break;
                 case LineEnding.CRLF:
-                    len++;
                     Append(&ptr, '\r');
                     Append(&ptr, '\n');
                     break;
