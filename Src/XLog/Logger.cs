@@ -45,72 +45,102 @@ namespace XLog
 
         public void Trace(string message, Exception ex = null)
         {
-            Log(LogLevel.Trace, 0L, message, ex);
+            LogInternal(LogLevel.Trace, 0L, message, ex);
         }
 
         public void Trace(long category, string message, Exception ex = null)
         {
-            Log(LogLevel.Trace, category, message, ex);
+            LogInternal(LogLevel.Trace, category, message, ex);
+        }
+
+        public void TraceFormat(string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Trace, 0L, null, format, args);
         }
 
         public void Debug(string message, Exception ex = null)
         {
-            Log(LogLevel.Debug, 0L, message, ex);
+            LogInternal(LogLevel.Debug, 0L, message, ex);
         }
 
         public void Debug(long category, string message, Exception ex = null)
         {
-            Log(LogLevel.Debug, category, message, ex);
+            LogInternal(LogLevel.Debug, category, message, ex);
+        }
+
+        public void DebugFormat(string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Debug, 0L, null, format, args);
         }
 
         public void Info(string message, Exception ex = null)
         {
-            Log(LogLevel.Info, 0L, message, ex);
+            LogInternal(LogLevel.Info, 0L, message, ex);
         }
 
         public void Info(long category, string message, Exception ex = null)
         {
-            Log(LogLevel.Info, category, message, ex);
+            LogInternal(LogLevel.Info, category, message, ex);
+        }
+
+        public void InfoFormat(string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Info, 0L, null, format, args);
         }
 
         public void Warn(string message, Exception ex = null)
         {
-            Log(LogLevel.Warn, 0L, message, ex);
+            LogInternal(LogLevel.Warn, 0L, message, ex);
         }
 
         public void Warn(long category, string message, Exception ex = null)
         {
-            Log(LogLevel.Warn, category, message, ex);
+            LogInternal(LogLevel.Warn, category, message, ex);
+        }
+
+        public void WarnFormat(string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Warn, 0L, null, format, args);
         }
 
         public void Error(string message, Exception ex = null)
         {
-            Log(LogLevel.Error, 0L, message, ex);
+            LogInternal(LogLevel.Error, 0L, message, ex);
         }
 
         public void Error(long category, string message, Exception ex = null)
         {
-            Log(LogLevel.Error, category, message, ex);
+            LogInternal(LogLevel.Error, category, message, ex);
+        }
+
+        public void ErrorFormat(string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Error, 0L, null, format, args);
         }
 
         public void Fatal(string message, Exception ex = null)
         {
-            Log(LogLevel.Fatal, 0L, message, ex);
+            LogInternal(LogLevel.Fatal, 0L, message, ex);
         }
 
         public void Fatal(long category, string message, Exception ex = null)
         {
-            Log(LogLevel.Fatal, category, message, ex);
+            LogInternal(LogLevel.Fatal, category, message, ex);
+        }
+
+        public void FatalFormat(string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Fatal, 0L, null, format, args);
         }
 
         public void Log(LogLevel logLevel, string message, Exception ex = null)
         {
-            Log(logLevel, 0L, message, ex);
+            LogInternal(logLevel, 0L, message, ex);
         }
 
         public void Log(LogLevel logLevel, long category, string message, Exception ex = null)
         {
-            LogInternal(logLevel, message, category, ex);
+            LogInternal(logLevel, category, message, ex);
         }
 
         public bool IsEnabled(LogLevel logLevel)
@@ -118,13 +148,28 @@ namespace XLog
             return _config.Levels[(int)logLevel];
         }
 
-        private void LogInternal(LogLevel logLevel, string message, long category, Exception ex)
+        private void LogInternal(LogLevel logLevel, long category, string message, Exception ex)
         {
             if (!_config.IsEnabled || !_config.Levels[(int)logLevel] || !_config.CategoryRegistrar.IsEnabled(category))
             {
                 return;
             }
 
+            PerformWrite(logLevel, message, category, ex);
+        }
+
+        private void LogInternalFormat(LogLevel logLevel, long category, Exception ex, string format, params object[] args)
+        {
+            if (!_config.IsEnabled || !_config.Levels[(int)logLevel] || !_config.CategoryRegistrar.IsEnabled(category))
+            {
+                return;
+            }
+
+            PerformWrite(logLevel, string.Format(format, args), category, ex);
+        }
+
+        private void PerformWrite(LogLevel logLevel, string message, long category, Exception ex)
+        {
             var entry = new Entry(logLevel, Tag, message, category, ex);
 
             for (int index = 0; index < _config.TargetConfigs.Count; index++)
@@ -138,7 +183,7 @@ namespace XLog
                     }
                     catch (Exception e)
                     {
-                        System.Diagnostics.Debug.WriteLine(string.Format("Target write failed. --> {0}", e));
+                        System.Diagnostics.Debug.WriteLine("Target write failed. --> {0}", e);
                     }
                 }
             }

@@ -16,3 +16,5 @@ Build
 _Resharper*
 *.DS_Store
 *.userprefs
+.idea
+.vs
