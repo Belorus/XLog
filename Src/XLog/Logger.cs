@@ -58,6 +58,11 @@ namespace XLog
             LogInternalFormat(LogLevel.Trace, 0L, null, format, args);
         }
 
+        public void TraceFormat(long category, string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Trace, category, null, format, args);
+        }
+
         public void Debug(string message, Exception ex = null)
         {
             LogInternal(LogLevel.Debug, 0L, message, ex);
@@ -71,6 +76,11 @@ namespace XLog
         public void DebugFormat(string format, params object[] args)
         {
             LogInternalFormat(LogLevel.Debug, 0L, null, format, args);
+        }
+
+        public void DebugFormat(long category, string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Debug, category, null, format, args);
         }
 
         public void Info(string message, Exception ex = null)
@@ -88,6 +98,11 @@ namespace XLog
             LogInternalFormat(LogLevel.Info, 0L, null, format, args);
         }
 
+        public void InfoFormat(long category, string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Info, category, null, format, args);
+        }
+
         public void Warn(string message, Exception ex = null)
         {
             LogInternal(LogLevel.Warn, 0L, message, ex);
@@ -101,6 +116,11 @@ namespace XLog
         public void WarnFormat(string format, params object[] args)
         {
             LogInternalFormat(LogLevel.Warn, 0L, null, format, args);
+        }
+
+        public void WarnFormat(long category, string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Warn, category, null, format, args);
         }
 
         public void Error(string message, Exception ex = null)
@@ -118,6 +138,11 @@ namespace XLog
             LogInternalFormat(LogLevel.Error, 0L, null, format, args);
         }
 
+        public void ErrorFormat(long category, string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Error, category, null, format, args);
+        }
+
         public void Fatal(string message, Exception ex = null)
         {
             LogInternal(LogLevel.Fatal, 0L, message, ex);
@@ -131,6 +156,11 @@ namespace XLog
         public void FatalFormat(string format, params object[] args)
         {
             LogInternalFormat(LogLevel.Fatal, 0L, null, format, args);
+        }
+
+        public void FatalFormat(long category, string format, params object[] args)
+        {
+            LogInternalFormat(LogLevel.Fatal, category, null, format, args);
         }
 
         public void Log(LogLevel logLevel, string message, Exception ex = null)

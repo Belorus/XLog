@@ -38,7 +38,7 @@ namespace XLog.Sample.Console
 
         public static void TestCategory()
         {
-            Log.Info(LogCategory.FirstCategory | LogCategory.SecondCategory, "Test category message");
+            Log.InfoFormat(LogCategory.FirstCategory | LogCategory.SecondCategory, "Test category message {0}", 100500);
             Log.Info(LogCategory.SecondCategory, "Test category message");
             Log.Info(LogCategory.FirstCategory | LogCategory.ThirdCategory, "Test category message");
         }
