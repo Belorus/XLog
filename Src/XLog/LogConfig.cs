@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using XLog.Categories;
 using XLog.Formatters;
 
@@ -9,9 +9,8 @@ namespace XLog
     {
         public readonly IFormatter Formatter;
         public readonly LogCategoryRegistrar CategoryRegistrar;
-
-        internal List<TargetConfig> TargetConfigs;
-        internal readonly bool[] Levels;
+        internal readonly List<TargetConfig> TargetConfigs;
+        internal bool[] Levels;
 
         public bool IsEnabled = true;
 
@@ -23,11 +22,29 @@ namespace XLog
             Levels = new bool[LogLevels.Levels.Length];
         }
 
-        public void AddTarget(LogLevel logLevel, Target target)
+        public void Configure(Action<List<TargetConfig>> action)
         {
-            AddTarget(logLevel, logLevel, target);
+            action(TargetConfigs);
+            
+            UpdateLevels();
         }
 
+        private void UpdateLevels()
+        {
+            var newLevelsArray = new bool[LogLevels.Levels.Length];
+
+            foreach (var targetConfig in TargetConfigs)
+            {
+                for (int level = (int) targetConfig.MinLevel; level <= (int) targetConfig.MaxLevel; level++)
+                {
+                    newLevelsArray[level] = true;
+                }
+            }
+
+            Levels = newLevelsArray;
+        }
+
+        [Obsolete("Use Configure")]
         public void AddTarget(LogLevel minLevel, LogLevel maxLevel, Target target)
         {
             TargetConfigs.Add(new TargetConfig(minLevel, maxLevel, target));

@@ -42,7 +42,7 @@ namespace XLog.Sample.Console
             var formatter = new LineFormatter(new DefaultCategoryFormatter(categoryRegistry));
             var logConfig = new LogConfig(formatter, categoryRegistry);
 
-            logConfig.AddTarget(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget());
+            logConfig.Configure(list => list.Add(new TargetConfig(LogLevel.Trace, LogLevel.Fatal, new ConsoleTarget())));
 
             LogManager.Init(logConfig);
         }
