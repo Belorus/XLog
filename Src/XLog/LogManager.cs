@@ -31,14 +31,14 @@ namespace XLog
             _instance.GetLogger("XLog.LogManager").Info(initMessage);
         }
 
-        public Logger GetLogger(string tag, LogConfig config = null)
+        public Logger GetLogger(string tag, LogConfig config = null, long? defaultCategory = null)
         {
             if (string.IsNullOrEmpty(tag))
             {
                 throw new ArgumentNullException(nameof(tag));
             }
 
-            return new Logger(tag, config ?? Config);
+            return new Logger(tag, defaultCategory, config ?? Config);
         }
 
         public void Flush()

@@ -19,7 +19,7 @@ namespace XLog.Sample.Console
     internal static class Logic
     {
         const int Iterations = 1000000;
-        private static readonly Logger Log = LogManager.Default.GetLogger("Logic");
+        private static readonly Logger Log = LogManager.Default.GetLogger("Logic", defaultCategory: LogCategory.SecondCategory);
 
         public static void TestWrite()
         {
@@ -41,6 +41,7 @@ namespace XLog.Sample.Console
             Log.InfoFormat(LogCategory.FirstCategory | LogCategory.SecondCategory, "Test category message {0}", 100500);
             Log.Info(LogCategory.SecondCategory, "Test category message");
             Log.Info(LogCategory.FirstCategory | LogCategory.ThirdCategory, "Test category message");
+            Log.Info("Default category");
         }
     }
 }
