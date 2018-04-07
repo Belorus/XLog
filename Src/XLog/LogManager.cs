@@ -31,7 +31,17 @@ namespace XLog
             _instance.GetLogger("XLog.LogManager").Info(initMessage);
         }
 
-        public Logger GetLogger(string tag, LogConfig config = null, long? defaultCategory = null)
+        public Logger GetLogger(string tag, LogConfig config = null)
+        {
+            if (string.IsNullOrEmpty(tag))
+            {
+                throw new ArgumentNullException(nameof(tag));
+            }
+
+            return new Logger(tag, null, config ?? Config);
+        }
+        
+        public Logger GetLogger(string tag, long defaultCategory, LogConfig config = null)
         {
             if (string.IsNullOrEmpty(tag))
             {
