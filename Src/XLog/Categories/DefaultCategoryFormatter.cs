@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using XLog.Formatters;
 
 namespace XLog.Categories
@@ -13,6 +15,20 @@ namespace XLog.Categories
         public DefaultCategoryFormatter(LogCategoryRegistrar categoryRegistry)
         {
             _categoryRegistry = categoryRegistry;
+        }
+
+        public string[] GetAsStringArray(long categories)
+        {
+            //TODO: Optimize. Introduce caching
+            if (categories == 0)
+            {
+                return new string[0];
+            }
+
+            return _categoryRegistry.GetAll()
+                .Where(value => (value & categories) == value)
+                .Select(value => _categoryRegistry.Get(value))
+                .ToArray();
         }
 
         public string GetString(long categories)

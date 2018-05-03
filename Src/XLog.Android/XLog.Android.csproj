@@ -40,8 +40,7 @@
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Xml" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\XLog.SharedFiles\Targets\ConsoleTarget.cs">
@@ -52,6 +51,27 @@
     </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\InMemoryBufferTarget.cs">
       <Link>Targets\InMemoryBufferTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\LogRoom\Dispatcher.cs">
+      <Link>Targets\LogRoom\Dispatcher.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\LogRoom\IJsonFormatter.cs">
+      <Link>Targets\LogRoom\IJsonFormatter.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\LogRoom\InMemoryStorage.cs">
+      <Link>Targets\LogRoom\InMemoryStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\LogRoom\IStorage.cs">
+      <Link>Targets\LogRoom\IStorage.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\LogRoom\LogRoomMessageDto.cs">
+      <Link>Targets\LogRoom\LogRoomMessageDto.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\LogRoom\LogRoomTarget.cs">
+      <Link>Targets\LogRoom\LogRoomTarget.cs</Link>
+    </Compile>
+    <Compile Include="..\XLog.SharedFiles\Targets\LogRoom\StoringEventSenderProxy.cs">
+      <Link>Targets\LogRoom\StoringEventSenderProxy.cs</Link>
     </Compile>
     <Compile Include="..\XLog.SharedFiles\Targets\NullTarget.cs">
       <Link>Targets\NullTarget.cs</Link>
