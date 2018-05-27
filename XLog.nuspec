@@ -2,11 +2,11 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>XLog</id>
-        <version>1.0.0.0</version>
+        <version>1.0.0.174</version>
         <title>XLog</title>
-        <authors>Grygory Perepechko, Oleg Ilyin</authors>
+        <authors>Grigory Perepechko, Oleg Ilyin</authors>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>Minimalistic logging PCL library that supports.NET, WP8, UWP, Xamarin iOS, Xamarin Android.</description>
+        <description>Minimalistic logging PCL library that supports.NET, WP8, UWP, Xamarin iOS, Xamarin Android, Xamarin.Mac</description>
     </metadata>
     <files>
         <!-- PCL -->
